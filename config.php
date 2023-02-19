@@ -8,7 +8,7 @@ define('URL', 'http://localhost/');
 // configuracion app //
 ////////////////////////
 
-$PROYECTO = 'TPfinalDinamica';
+$PROYECTO = 'TPFD';
 
 // variable que almacena el directorio del proyecto
 $ROOT = $_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
