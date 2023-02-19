@@ -1,6 +1,6 @@
 <?php
-/* require_once('../config.php');
-require_once($ROOT.'Vendor/phpmailer/phpmailer/src/PHPMailer.php');
+require_once('../config.php');
+/*require_once($ROOT.'Vendor/phpmailer/phpmailer/src/PHPMailer.php');
 require_once($ROOT.'Vendor/phpmailer/phpmailer/src/Exception.php');
 require_once($ROOT.'Vendor/phpmailer/phpmailer/src/SMTP.php'); */
 
@@ -13,7 +13,7 @@ require_once('includes/Exception.php'); */
 
 trait Mail
 {
-    public static function enviarMail($email_o_id_usuario, $contenido)
+    public static function enviarMail($email, $contenido)
     {
         $mail = new PHPMailer();
         //Set mailer to use smtp
@@ -37,8 +37,8 @@ trait Mail
         //email body 
         $mail->Body = $contenido;
         //add recipient
-        if($email_o_id_usuario != '' && $email_o_id_usuario != null){
-            $mail->addAddress($email_o_id_usuario);
+        if($email != '' && $email != null){
+            $mail->addAddress($email);
         } else{
             $mail->addAddress("maximliano.hitter@est.fi.uncoma.edu.ar");
         }

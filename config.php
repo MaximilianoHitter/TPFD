@@ -41,7 +41,9 @@ spl_autoload_register(function ($class_name){
         $GLOBALS['ROOT'].'Views/',
         $GLOBALS['ROOT'].'Views/templates',
         $GLOBALS['ROOT'].'Vendor/mikecao/flight/flight',
-        $GLOBALS['ROOT'].'Vendor/phpmailer/phpmailer/src/',       
+        $GLOBALS['ROOT'].'Vendor/phpmailer/phpmailer/src/',
+        $GLOBALS['ROOT'].'Vendor/phpmailer/phpmailer/',
+        $GLOBALS['ROOT'].'Vendor/phpmailer/phpmailer'       
 
     );
     // print_r($directorys);

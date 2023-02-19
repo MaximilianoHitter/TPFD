@@ -49,7 +49,7 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 if( $rta ){
                     $response = true;
                     //envio de mail
-                    //Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
+                    //$respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
                 } else {
                     $response = false;
                 }
@@ -98,7 +98,7 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 if( $rta ){
                     $response = true;
                     //envio de mail
-                   // Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Cancelada".');
+                    //$respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Cancelada".');
                 } else {
                     $response = false;
                 }
@@ -117,7 +117,7 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 $mail = $objUsuario->getUsmail();
                 $rsss = $objCompraEstadoCon->modificarEstado($idCompraestado, $idcompraestadotipo);
                 //envio de mail
-                //Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
+                //$respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
             }elseif($idCompraEstadoTipoPorParametro == 4){
                 $idcompraestado = $objCompraEstado->getIdcompraestado();
                 $idcompraestadotipo = 4;

@@ -97,7 +97,7 @@ try {
 </div> -->
 
 <script>
-    var base_url = 'http://localhost/TPfinalDinamica/Views/rol';
+    var base_url = 'http://localhost/TPFD/Views/rol';
 
     document.addEventListener('DOMContentLoaded', function () {
         let table = new DataTable('#tabla_de_roles');

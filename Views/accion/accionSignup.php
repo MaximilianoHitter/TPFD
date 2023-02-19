@@ -11,7 +11,7 @@ if( $respuesta['respuesta'] ){
     echo('Usuario creado piolon');
     ?>
     <script>
-        location.href = 'TPfinalDinamica/Views/logs/login.php';
+        location.href = 'TPFD/Views/logs/login.php';
     </script>
     <?php
 } else {
