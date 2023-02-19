@@ -29,7 +29,7 @@ trait Mail
         //set gmial user 
         $mail->Username = "maximliano.hitter@est.fi.uncoma.edu.ar";
         //set pass 
-        $mail->Password = "azerothargus2";
+        $mail->Password = "******";
         //set email subj 
         $mail->Subject = "Cambio de estado de la compra";
         //set sender 
