@@ -44,16 +44,15 @@ if( $objSession->getUsnombre() != null ){
             <table id="dg" title="Productos" class="easyui-datagrid" style="width:1200px;height:700px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
                 <thead>
                     <tr>
-                        <th field="idproducto" width="2%">Id</th>
-                        <th field="pronombre" width="10%">Nombre producto</th>
-                        <th field="sinopsis" width="20%">Sinopsis</th>
-                        <th field="procantstock" width="5%">Stock</th>
-                        <th field="autor" width="10%">Autor</th>
-                        <th field="precio" width="5%">Precio</th>
-                        <th field="isbn" width="5%">ISBN</th>
-                        <th field="categoria" width="10%">Categoría</th>
-                        <th field="prdeshabilitado" width="10%">Deshabilitado</th>
-                        <th field="foto" width="20%">Portada</th>
+                        <th field="idproducto">Id</th>
+                        <th field="pronombre" >Nombre producto</th>
+                        <th field="sinopsis" >Sinopsis</th>
+                        <th field="procantstock">Stock</th>
+                        <th field="autor" >Autor</th>
+                        <th field="precio">Precio</th>
+                        <th field="isbn">ISBN</th>
+                        <th field="categoria" >Categoría</th>
+                        <th field="prdeshabilitado" >Deshabilitado</th>
                     </tr>
                 </thead>
             </table>

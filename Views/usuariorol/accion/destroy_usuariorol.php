@@ -1,7 +1,8 @@
 <?php
 require_once('../../../config.php');
 $objUsuarioRolCon = new UsuarioRolController();
-$data = $objUsuarioRolCon->eliminar();
+$idur = Data::buscarKey('idur');
+$data = $objUsuarioRolCon->eliminar($idur);
 $respuesta = false;
 if($data){
    $retorno['respuesta'] = true;

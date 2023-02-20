@@ -32,13 +32,13 @@ trait Data {
     }
 
     // Traigo datos de get/post
-    /* private static function getDatos(){
+    private static function getDatos(){
         $datos = Data::data();
         return $datos;
-    } */
+    }
 
     //Funcion para buscar la key
-    /* public static function buscarKey( $key ){
+    public static function buscarKey( $key ){
         $datos = Data::getDatos();
         $post = $datos['POST'];
         $get = $datos['GET'];
@@ -50,6 +50,14 @@ trait Data {
             $respuesta = false;
         }
         return $respuesta;
-    } */
+    }
+
+    public static function estaSeteado(){
+        $respuesta = false;
+        if(isset($_POST) || isset($_GET)){
+            $respuesta = true;
+        }
+        return $respuesta;
+    }
 
 }

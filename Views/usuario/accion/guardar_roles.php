@@ -3,7 +3,8 @@ require_once('../../../config.php');
 $objUsuarioRolCon = new UsuarioRolController();
 $retorno['respuesta'] = false;
 //borrar roles de usuario
-$idusuario = $objUsuarioRolCon->buscarKey('idusuario');
+//$idusuario = $objUsuarioRolCon->buscarKey('idusuario');
+$idusuario = Data::buscarKey('idusuario');
 if ($idusuario != null) {
     $arraybus['idusuario'] = $idusuario;
     $rolesDeUsuario = Usuariorol::listar($arraybus);
@@ -32,7 +33,8 @@ if ($idusuario != null) {
                 $data = $value->dameDatos();
                 $idrol = $data['idrol'];
                 //$rolesSimple[$data['idrol']] = false;
-                $guardarDato = $objUsuarioRolCon->buscarKey(("rol$idrol"));
+                //$guardarDato = $objUsuarioRolCon->buscarKey(("rol$idrol"));
+                $guardarDato = Data::buscarKey(("rol$idrol"));
                 //var_dump($guardarDato);
                 if ($guardarDato != null && $guardarDato == 'on') {
                     $rolesNuevos[$idrol] = $guardarDato;

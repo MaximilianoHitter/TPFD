@@ -4,20 +4,20 @@ class CompraestadoController extends MasterController {
     use Errores;
 
     //crea array para la busqueda
-    public function busqueda(){
+    /* public function busqueda(){
         $arrayBusqueda = [];
         $idcompraestado = $this->buscarKey('idcompraestado');
         $idcompra = $this->buscarKey('idcompra');
         $idcompraestadotipo = $this->buscarKey('idcompraestadotipo');
         $cefechaini = $this->buscarKey('cefechaini');
         /* $cefechafin = $this->buscarKey('cefechafin'); */
-        $arrayBusqueda = ['idcompraestado' => $idcompraestado,
+        /*$arrayBusqueda = ['idcompraestado' => $idcompraestado,
                           'idcompra' => $idcompra,
                           'idcompraestadotipo' => $idcompraestadotipo,
                           'cefechaini' => $cefechaini,
                           ];
         return $arrayBusqueda;
-    }
+    } */
 
     public function listarTodo($arrayBusqueda){
         //$arrayBusqueda = $this->busqueda();
@@ -33,12 +33,12 @@ class CompraestadoController extends MasterController {
         return $array;        
     }
 
-    public function buscarId(){
+    public function buscarId($idcompraestado){
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
         $arrayBusqueda = [];
-        $arrayBusqueda['idcompraestado'] = $this->buscarKey('idcompraestado');
+        $arrayBusqueda['idcompraestado'] = $idcompraestado;
         $objCompraestado = new Compraestado();
         $rta = $objCompraestado->buscar($arrayBusqueda);
         //var_dump($objCompraestado);
@@ -73,7 +73,7 @@ class CompraestadoController extends MasterController {
 
 
     //
-    public function insertar(){
+    /* public function insertar(){
         $data = $this->busqueda();
         $objCompraestado = new Compraestado();
         $objCompraestado->setIdcompraestado($data['idcompraestado']);
@@ -87,11 +87,11 @@ class CompraestadoController extends MasterController {
         $objCompraestado->setCefechafin($data['cefechafin']);
         $rta = $objCompraestado->insertar();
         return $rta;
-    }
+    } */
 
     
 
-    public function modificar(){
+    /* public function modificar(){
         $rta = $this->buscarId();
         $response = false;
         if($rta['respuesta']){
@@ -101,16 +101,16 @@ class CompraestadoController extends MasterController {
             $objCompraestado = $rta['obj'];
             /* $objCompraestado->cargar($valores['idcompraestado'], $valores['idcompra'], $valores['idcompraestadotipo'], $valores['cefechaini'], $valores['cefechafin']); */
 
-            $objCompra = new Compra();
+            /* $objCompra = new Compra();
             $arridcompra = ['idcompra' => $valores['idcompra']];
             $objCompra->buscar($arridcompra);
             $objCompraestado->setObjCompra($objCompra);
 
             $objCompraestadotipo = new Compraestadotipo();
-            $arridcompraestadotpo = ['idcompraestadotipo' => $valores['idcompraestadotipo']];
+            $arridcompraestadotpo = ['idcompraestadotipo' => $valores['idcompraestadotipo']]; */
             /* var_dump($arridcompraestadotpo);
             die(); */
-            $objCompraestadotipo->buscar($arridcompraestadotpo);
+           /*  $objCompraestadotipo->buscar($arridcompraestadotpo);
             $objCompraestado->setObjCompraestadotipo($objCompraestadotipo);
 
             $rsta = $objCompraestado->modificar();
@@ -123,11 +123,11 @@ class CompraestadoController extends MasterController {
             $response = false;
         }
         return $response;
-    }
+    }  */
 
 
-    public function eliminar(){
-        $rta = $this->buscarId();
+    public function eliminar($idcompraestado){
+        $rta = $this->buscarId($idcompraestado);
         $response = false;
         if( $rta['respuesta'] ){
             $objProducto = $rta['obj'];
@@ -152,16 +152,21 @@ class CompraestadoController extends MasterController {
         $respuesta = false;
         if($rta['respuesta']){
             //salio bien la query
-            if($objCompraEstado->getObjCompra()->getIdcompra() != NULL){
+            $objCompra = new Compra();
+            $objCompra = $objCompraEstado->getObjCompra();
+            $idcompra = $objCompra->getIdcompra();
+            //$objCompraEstado->getObjCompra()->getIdcompra() != NULL
+            if($idcompra != NULL){
                 //hay una compra activa
-                $respuesta = $objCompraEstado->getObjCompra()->getIdcompra();
+                //$respuesta = $objCompraEstado->getObjCompra()->getIdcompra();
+                $respuesta = $idcompra;
             }
         }
         return $respuesta;
     }
 
     //ponemos la fecha de hoy para el cambio de estado
-    public function setearfecha(){
+    /* public function setearfecha(){
         $rta = $this->buscarId();
         $sepudo = [];
         $hoy = date("Y-m-d H:i:s");
@@ -176,10 +181,10 @@ class CompraestadoController extends MasterController {
         }
         return $sepudo;
         
-    }
+    } */
 
     //para modificar la fecha y modificarla en la base de datos
-    public function modificarFechafin(){
+    /* public function modificarFechafin(){
         $arrayCompraestado = $this->buscarId();
         $objCompraestado = $arrayCompraestado['obj'];
         $fechafin = date("Y-m-d H:i:s");
@@ -193,9 +198,9 @@ class CompraestadoController extends MasterController {
         return $respuesta;
         
         
-    }
+    } */
 
-    public function crearNuevoestadoElegido(){
+    /* public function crearNuevoestadoElegido(){
         $array = [];
         $objCompraestado = new Compraestado();
         //tengo objeto compra
@@ -217,14 +222,14 @@ class CompraestadoController extends MasterController {
         }
         
         return $respuesta;
-    }
+    } */
     
 
     //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
     //tengo que traer la compra, el compraitem y producto
     public function cambiarStocksegunEstado($objCompraestado){
         //buscar el valor de la key enviada cmo compraestadotipo
-        $data = $this->buscarKey('idcompraestadotipo');
+        $data = Data::buscarKey('idcompraestadotipo');
         //obtengo el obj compra que tiene el objeto
         $objCompra = $objCompraestado->getObjCompra();
         //obtengo el obj estadotipo que tiene sin el cambio

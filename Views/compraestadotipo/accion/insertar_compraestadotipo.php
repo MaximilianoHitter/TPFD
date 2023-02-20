@@ -2,10 +2,14 @@
 
 require_once('../../../config.php');
 $objConCompraestadotipo = new CompraestadotipoController();
-$data = $objConCompraestadotipo->buscarKey('cetdescripcion');
+//$data = $objConCompraestadotipo->buscarKey('cetdescripcion');
+
+$datos['idcompraestadotipo'] = Data::buscarKey('idcompraestadotipo');
+$datos['cetdescripcion'] = Data::buscarKey('cetdescripcion');
+$datos['cetdetalle'] = Data::buscarKey('cetdetalle');
 $respuesta = false;
-if($data != null){
-    $rta = $objConCompraestadotipo->insertar();
+if($datos != null){
+    $rta = $objConCompraestadotipo->insertar($datos);
     if($rta['respuesta']){
         $respuesta = true;
     }

@@ -1,10 +1,11 @@
 <?php
 require_once('../../../config.php');
 $objRolCon = new RolController();
-$data = $objRolCon->buscarKey('idrol');
+//$data = $objRolCon->buscarKey('idrol');
+$data = Data::buscarKey('idrol');
 $respuesta = false;
 if($data != null){
-   $rta = $objRolCon->eliminar();
+   $rta = $objRolCon->eliminar($data);
    //var_dump($rta);
    //die()
    if(!$rta){

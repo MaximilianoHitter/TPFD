@@ -1,10 +1,21 @@
 <?php
 require_once('../../../config.php');
-$objConCompra = new ProductoController();
-$data = $objConCompra->buscarKey('idcompra');
+$objConProd = new ProductoController();
+//$data = $objConCompra->buscarKey('idcompra');
 $respuesta = false;
-if($data != null){
-    $rta = $objConCompra->insertar();
+if(Data::estaSeteado()){
+    //obtencion de datos
+    $datos = [];
+    $datos['idproducto'] = Data::buscarKey('idproducto');
+    $datos['pronombre'] = Data::buscarKey('pronombre');
+    $datos['sinopsis'] = Data::buscarKey('sinopsis');
+    $datos['procantstock'] = Data::buscarKey('procantstock');
+    $datos['autor'] = Data::buscarKey('autor');
+    $datos['precio'] = Data::buscarKey('precio');
+    $datos['isbn'] = Data::buscarKey('isbn');
+    $datos['categoria'] = Data::buscarKey('categoria'); 
+    //insercion del producto
+    $rta = $objConProd->insertar($datos);
     if($rta['respuesta']){
         $respuesta = true;
     }

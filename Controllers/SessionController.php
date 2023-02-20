@@ -21,7 +21,7 @@ class SessionController extends MasterController {
         return $_SESSION['idusuario'];
     }
 
-    public function existenCredenciales() {
+    /* public function existenCredenciales() {
         $sevalido = false;
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
@@ -33,7 +33,7 @@ class SessionController extends MasterController {
             $sevalido = true;
         }
         return $sevalido;
-    }
+    } */
 
     /** Identifica si la sesion esta activa
      * @return bool
@@ -50,9 +50,9 @@ class SessionController extends MasterController {
      * en la base de datos 
     * @return bool
     */
-    public function validarCredenciales() {
-        $usnombre = $this->buscarKey('usnombre');
-        $uspass = $this->buscarKey('uspass');
+    public function validarCredenciales($usnombre, $uspass) {
+        /* $usnombre = $this->buscarKey('usnombre');
+        $uspass = $this->buscarKey('uspass'); */
         //echo "<script>console.log('$uspass');console.log('$usnombre');</script>";
         if( ($usnombre != false && $uspass != false) || isset($_SESSION['usnombre']) ){
             

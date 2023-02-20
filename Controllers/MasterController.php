@@ -3,16 +3,16 @@
 class MasterController {
     
     // Uso el trait de data
-    use Data;
+    //use Data;
 
     // Traigo datos de get/post
-    private static function getDatos(){
+    /* public function getDatos(){
         $datos = Data::data();
         return $datos;
-    }
+    } */
     
     //Funcion para buscar la key
-    public static function buscarKey( $key ){
+    /* public function buscarKey( $key ){
         $datos = Data::getDatos();
         $post = $datos['POST'];
         $get = $datos['GET'];
@@ -24,7 +24,7 @@ class MasterController {
             $respuesta = false;
         }
         return $respuesta;
-    }
+    } */
 
 
     public function comprobarMateria($usuario){

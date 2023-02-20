@@ -3,7 +3,7 @@
 class RolController extends MasterController {
     use Errores;
 
-    public function busqueda(){
+    /* public function busqueda(){
         $arrayBusqueda = [];
         $idrol = $this->buscarKey('idrol');
         $rodescripcion = $this->buscarKey('rodescripcion');
@@ -12,7 +12,7 @@ class RolController extends MasterController {
             'rodescripcion' => $rodescripcion
         ];
         return $arrayBusqueda;
-    }
+    } */
 
     public function listarTodo(){
         //$arrayBusqueda = $this->busqueda();
@@ -33,8 +33,8 @@ class RolController extends MasterController {
         return $data;
     } */
 
-    public function buscarId() {
-        $idBusqueda = $this->buscarKey( 'idrol' );
+    public function buscarId($idrol) {
+        $idBusqueda = $idrol;
         if( $idBusqueda == false ){
             // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
@@ -61,31 +61,31 @@ class RolController extends MasterController {
     }
 
     public function modificacionChetita() {
-        $rta = $this->buscarId();
+        $rta = $this->buscarId(Data::buscarKey('idrol'));
         $rol = $rta['array'];
 
-        $roDescripcion = $this->buscarKey( 'rodescripcion' );
+        $roDescripcion = Data::buscarKey( 'rodescripcion' );
         $rol->setRodescripcion( $roDescripcion );
 
         $respuesta = $rol->modificar();
         return $respuesta;
     }
 
-    public function insertar(){
-        $data = $this->busqueda();
+    public function insertar($data){
+        //$data = $this->busqueda();
         $objRol = new Rol();
-        $objRol->setIdrol($data['idrol']);
+        //$objRol->setIdrol($data['idrol']);
         $objRol->setRodescripcion($data['rodescripcion']);
         $rta = $objRol->insertar();
         return $rta;
     }
 
-    public function modificar(){
-        $rta = $this->buscarId();
+    public function modificar($idrol, $valores){
+        $rta = $this->buscarId($idrol);
         $response = false;
         if($rta['obj']){
             //puedo modificar con los valores
-            $valores = $this->busqueda();
+            //$valores = $this->busqueda();
             $objRol = $rta['obj'];
             $objRol->cargar($valores['rodescripcion']);
             $rsta = $objRol->modificar();
@@ -107,8 +107,8 @@ class RolController extends MasterController {
         return $bandera;
     } */
 
-    public function eliminar() {
-        $rta = $this->buscarId();
+    public function eliminar($idrol) {
+        $rta = $this->buscarId($idrol);
         $response = false;
         if($rta['obj']){
             $objRol = $rta['obj'];
@@ -120,7 +120,7 @@ class RolController extends MasterController {
         return $response;
     }
 
-    public function algo(){
+    /* public function algo(){
         $datos = $this->buscarId();
         if(array_key_exists('obj', $datos)){
             return $datos['obj']->dameDatos();
@@ -128,5 +128,5 @@ class RolController extends MasterController {
             return $datos['error'];
         }
         
-    }
+    } */
 }

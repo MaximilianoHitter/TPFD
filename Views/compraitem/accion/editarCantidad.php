@@ -1,15 +1,17 @@
 <?php
 require_once('../../../config.php');
 $objCompraitemCon = new CompraitemController();
-$data = $objCompraitemCon->buscarKey('idcompraitem');
+//$data = $objCompraitemCon->buscarKey('idcompraitem');
+$data = Data::buscarKey('idcompraitem');
+$idproducto = Data::buscarKey('idproducto');
 $respuesta = false;
 if ($data != null) {
     //FUNCION EN CONTROLADOR PAR AQUE TRAIGA LA CANTIDAD DE PRODUCTO
     //FUNCION PARA COMPRAR 
-    $cantTotal = $objCompraitemCon->stockTotal();
-    $cantidad = $objCompraitemCon->buscarKey('cicantidad');
+    $cantTotal = $objCompraitemCon->stockTotal($idproducto);
+    $cantidad = Data::buscarKey('cicantidad');
     if ($cantTotal >= $cantidad) {
-        $rta = $objCompraitemCon->modificar();
+        $rta = $objCompraitemCon->modificar($idcompraitem, $cicantidad);
         if (!$rta) {
             $mensaje = "La accion no pudo concretarse";
         }

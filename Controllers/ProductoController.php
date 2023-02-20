@@ -2,7 +2,7 @@
 class ProductoController extends MasterController{
     use Errores;
 
-    public function busqueda(){
+    /* public function busqueda(){
         $arrayBusqueda = [];
         $idproducto = $this->buscarKey('idproducto');
         $pronombre = $this->buscarKey('pronombre');
@@ -29,7 +29,7 @@ class ProductoController extends MasterController{
             'foto' => $foto,
             'prdeshabilitado' => $prdeshabilitado];
         return $arrayBusqueda;
-    }
+    } */
 
     public function listarTodo($array){
         //$arrayBusqueda = $this->busqueda();
@@ -55,12 +55,12 @@ class ProductoController extends MasterController{
         return $array;        
     }
 
-    public function buscarId(){
+    public function buscarId($idproducto){
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
         $arrayBusqueda = [];
-        $arrayBusqueda['idproducto'] = $this->buscarKey('idproducto');
+        $arrayBusqueda['idproducto'] = $idproducto;
         $objProducto = new Producto();
         $rta = $objProducto->buscar($arrayBusqueda);
         if($rta['respuesta']){
@@ -72,30 +72,31 @@ class ProductoController extends MasterController{
         return $respuesta;        
     }
 
-    public function insertar(){
-        $data = $this->busqueda();
-        $objCompra = new Producto();
-        $objCompra->setProNombre( $data['pronombre'] );
-        $objCompra->setSinopsis( $data['sinopsis'] );
-        $objCompra->setProCantStock( $data['procantstock'] );
-        $objCompra->setAutor( $data['autor'] );
-        $objCompra->setPrecio( $data['precio'] );
-        $objCompra->setIsbn( $data['isbn'] );
-        $objCompra->setCategoria( $data['categoria'] );
-        $objCompra->setFoto( $data['foto'] );
+    public function insertar($data){
+        //$data = $this->busqueda();
+        $objProducto = new Producto();
+        $objProducto->setProNombre( $data['pronombre'] );
+        $objProducto->setSinopsis( $data['sinopsis'] );
+        $objProducto->setProCantStock( $data['procantstock'] );
+        $objProducto->setAutor( $data['autor'] );
+        $objProducto->setPrecio( $data['precio'] );
+        $objProducto->setIsbn( $data['isbn'] );
+        $objProducto->setCategoria( $data['categoria'] );
+        $objProducto->setFoto( $data['foto'] );
         
-        $rta = $objCompra->insertar();
+        $rta = $objProducto->insertar();
         return $rta;
     }
 
-    public function modificar(){
-        $rta = $this->buscarId();
+    public function modificar($idproducto, $valores){
+        $rta = $this->buscarId($idproducto);
         //var_dump($rta);
         $response = false;
         if($rta['respuesta']){
             //puedo modificar con los valores
-            $valores = $this->busqueda();
+            //$valores = $this->busqueda();
             $objProducto = $rta['obj'];
+            $valores['foto'] = '';
             $objProducto->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn'], $valores['categoria'], $valores['foto']);
             $rsta = $objProducto->modificar();
             if($rsta['respuesta']){
@@ -109,8 +110,8 @@ class ProductoController extends MasterController{
         return $response;
     }
 
-    public function eliminar(){
-        $rta = $this->buscarId();
+    public function eliminar($idproducto){
+        $rta = $this->buscarId($idproducto);
         $response = false;
         if($rta['respuesta']){
             $objProducto = $rta['obj'];

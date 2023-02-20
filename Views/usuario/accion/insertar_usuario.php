@@ -1,10 +1,15 @@
 <?php
 require_once('../../../config.php');
 $objUsuCon = new UsuarioController();
-$data = $objUsuCon->buscarKey('usnombre');
+//$data = $objUsuCon->buscarKey('usnombre');
+$data['idusuario'] = '';
+$data['usnombre'] = Data::buscarKey('usnombre');
+$data['uspass'] = Data::buscarKey('uspass');
+$data['usmail'] = Data::buscarKey('usmail');
+$data['usdeshabilitado'] = Data::buscarKey('usdeshabilitado');
 $respuesta = false;
 if($data != null){
-    $rta = $objUsuCon->insertar();
+    $rta = $objUsuCon->insertar($data);
     if($rta['respuesta']){
         $respuesta = true;
     }

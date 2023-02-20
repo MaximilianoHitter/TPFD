@@ -161,7 +161,7 @@ public function __construct(){
         // $filtroPass = ['uspass' => $pass];
 
         $controlUsuario = new UsuarioController();
-        $lista = $controlUsuario->buscarId();
+        $lista = $controlUsuario->buscarId(Data::buscarKey('idusuario'));
 
         $usnombrelista = $lista['obj']->getUsnombre();
         $uspasslista = $lista['obj']->getUspass();
@@ -207,7 +207,7 @@ public function __construct(){
         foreach ($listaUsuarios as $usuario) {
             $id = $usuario->getIdusuario();
             if ($id == $this->getIdusuario()) {
-                $rolUsuario = $objUsuarioRol->buscarRoles();
+                $rolUsuario = $objUsuarioRol->buscarRoles(Data::buscarKey('idusuario'));
             }
         }
         return $rolUsuario;
@@ -231,7 +231,7 @@ public function __construct(){
 
     public function rolesUsuario() {
         $objUsuarioRolCon = new UsuarioRolController();
-        $rta = $objUsuarioRolCon->buscarRoles();
+        $rta = $objUsuarioRolCon->buscarRoles(Data::buscarKey('idusuario'));
         $arrayRoles = $objUsuarioRolCon->getRoles();
         $rolesSimple = [];
         foreach ($arrayRoles as $key => $value) {

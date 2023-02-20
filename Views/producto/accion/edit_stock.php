@@ -4,8 +4,10 @@ $objCompraItemCon = new CompraitemController();
 $objProCon = new ProductoController();
 $objSession = new SessionController();
 
-$idproducto = $objCompraItemCon->buscarKey('idproducto');
-$cicantidad = intVal($objCompraItemCon->buscarKey('cicantidad'));
+//$idproducto = $objCompraItemCon->buscarKey('idproducto');
+$idproducto = Data::buscarKey('idproducto');
+//$cicantidad = intVal($objCompraItemCon->buscarKey('cicantidad'));
+$cicantidad = intval(Data::buscarKey('cicantidad'));
 $cantStock = $objProCon->obtenerStockPorId($idproducto);
 //Comprobar stock
 if ($cantStock != false) {

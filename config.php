@@ -39,7 +39,8 @@ spl_autoload_register(function ($class_name){
         $GLOBALS['ROOT'].'Util/',
         $GLOBALS['ROOT'].'Views/',
         $GLOBALS['ROOT'].'Views/templates',
-        $GLOBALS['ROOT'].'Controllers/clases/'      
+        $GLOBALS['ROOT'].'clases/phpmailer/',
+        $GLOBALS['ROOT'].'clases/'       
 
     );
     // print_r($directorys);

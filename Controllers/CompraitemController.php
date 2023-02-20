@@ -39,22 +39,24 @@ class CompraitemController extends MasterController
    
 
     //ACA EN MODIFICAR SETEAMOS LA CANTIDAD QUE QUEDA EN STOCK (DENTRO DE PRODUCTO, NO EN COMPRAITEM)
-    public function modificar()
+    public function modificar($idcompraitem, $cicantidad)
     {
-        $rta = $this->buscarId();
+        $rta = $this->buscarId($idcompraitem);
         //var_dump($rta);
         $response = false;
         if ($rta['respuesta']) {
             //puedo modificar con los valores
-            $valores = $this->busqueda();
+            //$valores = $this->busqueda();
             $objCompraItem = $rta['obj'];
-            $idproducto['idproducto'] = $valores['idproducto'];
-            $idcompra['idcompra'] = $valores['idcompra'];
+            /* $idproducto['idproducto'] = $valores['idproducto'];
+            $idcompra['idcompra'] = $valores['idcompra']; */
             $objProducto = new Producto();
-            $objProducto->buscar($idproducto);
+            $objProducto = $objCompraItem->getObjProducto();
+            //$objProducto->buscar($idproducto);
             $objCompra = new Compra();
-            $objCompra->buscar($idcompra);
-            $objCompraItem->cargar($objProducto, $objCompra, $valores['cicantidad']);
+            $objCompra = $objCompraItem->getObjCompra();
+            //$objCompra->buscar($idcompra);
+            $objCompraItem->cargar($objProducto, $objCompra, $cicantidad);
             $rsta = $objCompraItem->modificar();
             if ($rsta['respuesta']) {
                 //todo gut
@@ -69,13 +71,13 @@ class CompraitemController extends MasterController
 
 
 
-    public function buscarId()
+    public function buscarId($idcompraitem)
     {
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
         $arrayBusqueda = [];
-        $arrayBusqueda['idcompraitem'] = $this->buscarKey('idcompraitem');
+        $arrayBusqueda['idcompraitem'] = $idcompraitem;
         $objCompIt = new Compraitem();
         $rta = $objCompIt->buscar($arrayBusqueda);
         if ($rta['respuesta']) {
@@ -87,7 +89,7 @@ class CompraitemController extends MasterController
         return $respuesta;
     }
 
-    public function busqueda()
+    /* public function busqueda()
     {
         $arrayBusqueda = [];
         $idcompraitem = $this->buscarKey('idcompraitem');
@@ -102,11 +104,11 @@ class CompraitemController extends MasterController
             'cicantidad' => $cicantidad,
         ];
         return $arrayBusqueda;
-    }
+    } */
 
-    public function eliminar()
+    public function eliminar($idcompraitem)
     {
-        $rta = $this->buscarId();
+        $rta = $this->buscarId($idcompraitem);
         $response = false;
         if ($rta['respuesta']) {
             $objCompraItem = $rta['obj'];
@@ -121,9 +123,9 @@ class CompraitemController extends MasterController
         return $response;
     }
 
-    public function stockTotal()
+    public function stockTotal($idproducto)
     {
-        $idProducto['idproducto'] = $this->buscarKey('idproducto');
+        $idProducto['idproducto'] = $idproducto;
         $objetoProducto = new Producto();
         $busquedaProducto = $objetoProducto->buscar($idProducto);
         if ($busquedaProducto) {

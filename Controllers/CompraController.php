@@ -3,7 +3,7 @@
 class CompraController extends MasterController{
     use Errores;
 
-    public function busqueda(){
+    /* public function busqueda(){
         $arrayBusqueda = [];
         $idCompra = $this->buscarKey('idcompraestadotipo');
         $cofecha = $this->buscarKey('cofecha');
@@ -14,7 +14,7 @@ class CompraController extends MasterController{
             'idusuario' => $idusuario
         ];
         return $arrayBusqueda;
-    }
+    } */
 
     public function listarTodo($arr){
         //$arrayBusqueda = $this->busqueda();
@@ -30,7 +30,7 @@ class CompraController extends MasterController{
     }
 
 
-    public function buscarId() {
+    /* public function buscarId() {
         $idBusqueda = $this->buscarKey( 'idcompraestadotipo' );
         if( $idBusqueda == false ){
             // Error
@@ -47,9 +47,9 @@ class CompraController extends MasterController{
             }
             return $data;
         }
-    }
+    } */
 
-    public function buscarIdDos(){
+    /* public function buscarIdDos(){
         $rta = false;
         $idBusqueda = [];
         $idBusqueda['idcompra'] = $this->buscarKey('idcompra');
@@ -60,19 +60,19 @@ class CompraController extends MasterController{
             $rta['obj'] = $objCompra;
         }
         return $rta;
-    }
+    } */
 
-    public function insertar(){
-        $data = $this->busqueda();
+    /* public function insertar(){
+        //$data = $this->busqueda();
         $objCompraestadotipo = new Compraestadotipo();
         $objCompraestadotipo->setIdcompraestadotipo($data['idcompraestadotipo']);
         $objCompraestadotipo->setCetdescripcion($data['cetdescripcion']);
         $objCompraestadotipo->setCetdetalle($data['cetdetalle']);
         $rta = $objCompraestadotipo->insertar();
         return $rta;
-    }
+    } */
 
-    public function modificar(){
+    /* public function modificar(){
         $rta = $this->buscarIdDos();
         //var_dump($rta['respuesta']);
         $response = false;
@@ -88,9 +88,9 @@ class CompraController extends MasterController{
             }
         }
         return $response;
-    }
+    } */
 
-    public function eliminar(){
+    /* public function eliminar(){
         $rta = $this->buscarIdDos();
         $response = false;
         if($rta['respuesta']){
@@ -104,7 +104,7 @@ class CompraController extends MasterController{
             $response = false;
         }
         return $response;
-    }
+    } */
 
     public function buscarCompraConIdusuario($idusuario){
         $arrBus = [];

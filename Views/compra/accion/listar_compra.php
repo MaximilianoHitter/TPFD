@@ -2,7 +2,7 @@
 require_once('../../../config.php');
 
 $objConCompra = new CompraController();
-$lista = $objConCompra->listarTodo();
+$lista = $objConCompra->listarTodo(array());
 $arreglo_salid = array();
 foreach ($lista as $key => $value) {
     $nuevoElemen = $value->dameDatos();

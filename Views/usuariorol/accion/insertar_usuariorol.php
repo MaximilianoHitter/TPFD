@@ -2,11 +2,14 @@
 require_once('../../../config.php');
 
 $objUsuarioRol = new UsuarioRolController();
-$data = $objUsuarioRol->buscarKey( 'nombre' );
+//$data = $objUsuarioRol->buscarKey( 'nombre' );
+$data['nombre'] = Data::buscarKey('usnombre');
+$data['idur'] = Data::buscarKey( 'idur' );
+$data['rol'] = Data::buscarKey( 'rol' );
 
 $respuesta = false;
 if( $data != null ){
-    $rta = $objUsuarioRol->insertar();
+    $rta = $objUsuarioRol->insertar($data);
     if($rta['respuesta']){
         $respuesta = true;
     }

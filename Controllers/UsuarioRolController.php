@@ -27,7 +27,7 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
-    public function busqueda(){
+    /* public function busqueda(){
         $arrayBusqueda = [];
         $idusuario = $this->buscarKey( 'idur' );
         $usnombre = $this->buscarKey( 'usnombre' );
@@ -38,10 +38,10 @@ class UsuarioRolController extends MasterController {
             'uspass' => $rol
         ];
         return $arrayBusqueda;
-    }
+    } */
 
-    public function buscarRoles(){
-        $idusuario = $this->buscarKey('idusuario');
+    public function buscarRoles($idusuario){
+        //$idusuario = $this->buscarKey('idusuario');
         //var_dump($idusuario);
         $arrayBus = [];
         $arrayBus['idusuario'] = $idusuario;
@@ -54,7 +54,7 @@ class UsuarioRolController extends MasterController {
     }
 
     public function buscarId() {
-        $idBusqueda = $this->buscarKey( 'idur' );
+        $idBusqueda = Data::buscarKey( 'idur' );
         if( $idBusqueda == false ){
             // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
@@ -73,7 +73,7 @@ class UsuarioRolController extends MasterController {
     }
 
     public function buscarNombreUsuario() {
-        $idBusqueda = $this->buscarKey( 'usnombre' );
+        $idBusqueda = Data::buscarKey( 'usnombre' );
         if( $idBusqueda == false ){
             // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
@@ -84,9 +84,9 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
-    public function insertar() {
+    public function insertar($data) {
         $newUsuarioRol = new Usuariorol();
-        $data = $this->busqueda();
+        //$data = $this->busqueda();
 
         $newUsuarioRol->setIdur( $data['idur'] );
         $newUsuarioRol->setObjUsuario( $data['objUsuario'] );
@@ -101,7 +101,7 @@ class UsuarioRolController extends MasterController {
         return $rta;
     }
 
-    public function modificacionChetita() {
+    /* public function modificacionChetita() {
         $rta = $this->buscarId();
         $usuarioRol = $rta['array'];
 
@@ -115,11 +115,11 @@ class UsuarioRolController extends MasterController {
 
         $respuesta = $usuarioRol->modificar();
         return $respuesta;
-    }
+    } */
 
-    public function eliminar(){
+    public function eliminar($idur){
         $response = false;
-        $arrayBus['idur'] = $this->buscarKey('idur');
+        $arrayBus['idur'] = $idur;
         $objUsuarioRol = new UsuarioRol();
         $rta = $objUsuarioRol->buscar($arrayBus);
         if($rta['respuesta']){
@@ -179,7 +179,7 @@ class UsuarioRolController extends MasterController {
         $arrayRta = [];
         foreach ($arrayRoles as $key => $value) {
             $rodescripcion = $value['rodescripcion'];
-            $input = $this->buscarKey("$rodescripcion");
+            $input = Data::buscarKey("$rodescripcion");
             if($input != null){
                 $campo = true;
             }else{

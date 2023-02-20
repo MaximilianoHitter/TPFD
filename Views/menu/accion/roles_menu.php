@@ -1,7 +1,8 @@
 <?php
 require_once('../../../config.php');
 $objMenuRol = new MenuRolController();
-$rta = $objMenuRol->buscarRoles();
+$idmenu = Data::buscarKey('idmenu');
+$rta = $objMenuRol->buscarRoles($idmenu);
 $objUsuarioRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuarioRolCon->getRoles();
 $rolesSimple = [];

@@ -33,11 +33,11 @@ class UsuarioController extends MasterController {
 
     public function busqueda(){
         $arrayBusqueda = [];
-        $idusuario = $this->buscarKey('idusuario');
-        $usnombre = $this->buscarKey('usnombre');
-        $uspass = $this->buscarKey('uspass');
-        $usmail = $this->buscarKey('usmail');
-        $usdeshabilitado = $this->buscarKey('usdeshabilitado');
+        $idusuario = Data::buscarKey('idusuario');
+        $usnombre = Data::buscarKey('usnombre');
+        $uspass = Data::buscarKey('uspass');
+        $usmail = Data::buscarKey('usmail');
+        $usdeshabilitado = Data::buscarKey('usdeshabilitado');
         $arrayBusqueda = ['idusuario' => $idusuario,
                           'usnombre' => $usnombre,
                           'uspass' => $uspass,
@@ -46,12 +46,12 @@ class UsuarioController extends MasterController {
         return $arrayBusqueda;
     }
 
-    public function buscarId(){
+    public function buscarId($idusuario){
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
         $arrayBusqueda = [];
-        $arrayBusqueda['idusuario'] = $this->buscarKey('idusuario');
+        $arrayBusqueda['idusuario'] = $idusuario;
         $objUsuario = new Usuario();
         $rta = $objUsuario->buscar($arrayBusqueda);
         if($rta['respuesta']){
@@ -82,8 +82,8 @@ class UsuarioController extends MasterController {
         }
     } */
 
-    public function insertar(){
-        $data = $this->busqueda();
+    public function insertar($data){
+        //$data = $this->busqueda();
         $objUsuario = new Usuario();
         $objUsuario->setIdusuario($data['idusuario']);
         $objUsuario->setUsnombre($data['usnombre']);
@@ -111,12 +111,12 @@ class UsuarioController extends MasterController {
         return $rta;
     } */
 
-    public function modificar(){
-        $rta = $this->buscarId();
+    public function modificar($idusuario, $valores){
+        $rta = $this->buscarId($idusuario);
         $response = false;
         if($rta['respuesta']){
             //puedo modificar con los valores
-            $valores = $this->busqueda();
+            //$valores = $this->busqueda();
             $objUsuario = $rta['obj'];
             $objUsuario->cargar($valores['usnombre'], $valores['uspass'], $valores['usmail']);
             $rsta = $objUsuario->modificar();
@@ -128,8 +128,8 @@ class UsuarioController extends MasterController {
         return $response;
     }
 
-    public function modificacionChetita() {
-        $rta = $this->buscarId();
+    /* public function modificacionChetita() {
+        $rta = $this->buscarId(Data::buscarKey('idusuario'));
         $usuario = $rta['array'];
 
         $usNombre = $this->buscarKey( 'usnombre' );
@@ -144,7 +144,7 @@ class UsuarioController extends MasterController {
 
         $respuesta = $usuario->modificar();
         return $respuesta;
-    }
+    } */
 
     /* public function baja( $param ){
         $bandera = false;
@@ -156,8 +156,8 @@ class UsuarioController extends MasterController {
         return $bandera;
     } */
 
-    public function eliminar(){
-        $rta = $this->buscarId();
+    public function eliminar($idusuario){
+        $rta = $this->buscarId($idusuario);
         $response = false;
         if($rta['respuesta']){
             $objUsuario = $rta['obj'];
@@ -172,8 +172,8 @@ class UsuarioController extends MasterController {
         return $response;
     }
 
-    public function Noeliminar(){
-        $rta = $this->buscarId();
+    public function Noeliminar($idusuario){
+        $rta = $this->buscarId($idusuario);
         $response = false;
         if($rta['respuesta']){
             $objUsuario = $rta['obj'];
@@ -203,8 +203,8 @@ class UsuarioController extends MasterController {
     }
 
     public function buscarObjUsuario2() {
-        $usnombre = $this->buscarKey( 'usnombre' );
-        $uspass = $this->buscarKey( 'uspass' );
+        $usnombre = Data::buscarKey( 'usnombre' );
+        $uspass = Data::buscarKey( 'uspass' );
         $arrayBu = [
             'usnombre' => $usnombre,
             'uspass' => $uspass

@@ -13,7 +13,7 @@ try {
     }
 } catch (\Throwable $th) {
     $rol = '';
-    $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
+    $lista = []; 
 }
 
 $arreglo_salid = array();

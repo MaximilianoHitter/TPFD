@@ -1,7 +1,8 @@
 <?php
 require_once('../../../config.php');
 $objUsuarioRolCon = new UsuarioRolController();
-$rta = $objUsuarioRolCon->buscarRoles();
+$idusuario = Data::buscarKey('idusuario');
+$rta = $objUsuarioRolCon->buscarRoles($idusuario);
 $arrayRoles = $objUsuarioRolCon->getRoles();
 $rolesSimple = [];
 foreach ($arrayRoles as $key => $value) {

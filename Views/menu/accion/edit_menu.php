@@ -1,10 +1,14 @@
 <?php
 require_once('../../../config.php');
 $objMenuCon = new MenuController();
-$data = $objMenuCon->buscarKey('idusuario');
+//$data = $objMenuCon->buscarKey('idusuario');
+$data = Data::buscarKey('idmenu');
 $respuesta = false;
 if($data != null){
-    $rta = $objMenuCon->modificar();
+    $valores['menombre'] = Data::buscarKey('menombre'); 
+    $valores['medescripcion'] = Data::buscarKey('medescripcion');
+    $valores['idpadre'] = Data::buscarKey('idpadre');
+    $rta = $objMenuCon->modificar($data, $valores);
     if(!$rta){
         $mensaje = "La accion no pudo concretarse";
     }

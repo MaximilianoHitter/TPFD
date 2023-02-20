@@ -1,10 +1,11 @@
 <?php
 require_once('../../../config.php');
 $objUsuCon = new UsuarioController();
-$data = $objUsuCon->buscarKey('idusuario');
+//$data = $objUsuCon->buscarKey('idusuario');
+$data = Data::buscarKey('idusuario');
 $respuesta = false;
 if($data != null){
-   $rta = $objUsuCon->eliminar();
+   $rta = $objUsuCon->eliminar($data);
    //var_dump($rta);
    //die()
    if(!$rta){

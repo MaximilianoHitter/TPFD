@@ -21,7 +21,7 @@ $lista = $objMenuROl->listarTodo();
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyMenuRol()">Eliminar Relación</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-    <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
+    <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
     <h3>Menu - Rol Información</h3>
     <div style="margin-bottom:10px;">
         <input name="idmenu" id="idmenu" class="easyui-textbox" required="true" label="Menu" style="width:100%;">

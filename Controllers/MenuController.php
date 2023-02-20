@@ -19,12 +19,12 @@ class MenuController extends MasterController {
     }
 
     public function listar_menu_padre(){
-        $idmenu = $this->buscarKey('idmenu');
+        $idmenu = Data::buscarKey('idmenu');
         $array = Menu::darMenuesSinMenu($idmenu);
         return $array;
     }
 
-    public function busqueda(){
+   /*  public function busqueda(){
         $arrayBusqueda = [];
         $idmenu = $this->buscarKey('idmenu');
         $menombre = $this->buscarKey('menombre');
@@ -38,10 +38,10 @@ class MenuController extends MasterController {
                           'medeshabilitado' => $medeshabilitado];
         //var_dump($arrayBusqueda);
         return $arrayBusqueda;
-    }
+    } */
 
-    public function insertar(){
-        $data = $this->busqueda();
+    public function insertar($data){
+        //$data = $this->busqueda();
         $objMenu = new Menu();
         $objMenu->setIdmenu(NULL);
         $objMenu->setMenombre($data['menombre']);
@@ -57,12 +57,12 @@ class MenuController extends MasterController {
         return $rta;
     }
 
-    public function modificar(){
-        $rta = $this->buscarId();
+    public function modificar($idmenu, $valores){
+        $rta = $this->buscarId($idmenu);
         $response = false;
         if($rta['respuesta']){
             //puedo modificar con los valores
-            $valores = $this->busqueda();
+            //$valores = $this->busqueda();
             $objMenu = $rta['obj'];
             $objMenu->cargar($valores['menombre'], $valores['medescripcion'], $valores['idpadre']);
             $rsta = $objMenu->modificar();
@@ -74,12 +74,12 @@ class MenuController extends MasterController {
         return $response;
     }
 
-    public function buscarId(){
+    public function buscarId($idmenu){
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
         $arrayBusqueda = [];
-        $arrayBusqueda['idmenu'] = $this->buscarKey('idmenu');
+        $arrayBusqueda['idmenu'] = $idmenu;
         $objMenu = new Menu();
         $rta = $objMenu->buscar($arrayBusqueda);
         if($rta['respuesta']){
@@ -91,8 +91,8 @@ class MenuController extends MasterController {
         return $respuesta;        
     }
 
-    public function eliminar(){
-        $rta = $this->buscarId();
+    public function eliminar($idmenu){
+        $rta = $this->buscarId($idmenu);
         $response = false;
         if($rta['respuesta']){
             $objMenu = $rta['obj'];
@@ -107,8 +107,8 @@ class MenuController extends MasterController {
         return $response;
     }
 
-    public function Noeliminar(){
-        $rta = $this->buscarId();
+    public function Noeliminar($idmenu){
+        $rta = $this->buscarId($idmenu);
         $response = false;
         if($rta['respuesta']){
             $objMenu = $rta['obj'];

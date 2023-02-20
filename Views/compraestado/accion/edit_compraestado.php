@@ -3,7 +3,8 @@ require_once('../../../config.php');
 
 $objCompraEstadoTipoCon = new CompraestadotipoController();
 
-$idCompraEstado = $objCompraEstadoTipoCon->buscarKey('idcompraestado');
+//$idCompraEstado = $objCompraEstadoTipoCon->buscarKey('idcompraestado');
+$idCompraEstado = Data::buscarKey('idcompraestado');
 if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
     $objCompraEstadoCon = new CompraestadoController();
     $rta = $objCompraEstadoCon->buscarId($idCompraEstado); // lo devuelve gut
@@ -11,7 +12,8 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
         //encontro el objCompraEstado
         $objCompraEstado = $rta['obj'];
         $ObjCompraEstadoTipoActual = $objCompraEstado->getObjCompraestadotipo();
-        $idCompraEstadoTipoPorParametro = $objCompraEstadoTipoCon->buscarKey('idcompraestadotipo');
+        //$idCompraEstadoTipoPorParametro = $objCompraEstadoTipoCon->buscarKey('idcompraestadotipo');
+        $idCompraEstadoTipoPorParametro = Data::buscarKey('idcompraestadotipo');
         if( $idCompraEstadoTipoPorParametro == '2' || $idCompraEstadoTipoPorParametro == 2 ){
             // Opción Aceptada, resta stock.
             $objCompra = $objCompraEstado->getObjCompra(); 
@@ -44,7 +46,8 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 }
                 // Cambiar estado tupla y generar una nueva de compraestado; 5
                 $idcompraestadotipo = 2;
-                $idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
+                //$idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
+                $idCompraEstado = Data::buscarKey('idcompraestado');
                 $rta = $objCompraEstadoCon->modificarEstado($idCompraEstado, $idcompraestadotipo);
                 if( $rta ){
                     $response = true;
@@ -57,7 +60,7 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 $response = false;
                 $mensaje = 'Un producto supera el stock';
             }
-        } elseif( $idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4 ){
+        } elseif( $idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4 || $idCompraEstadoTipoPorParametro == '1' || $idCompraEstadoTipoPorParametro == 1 ){
             // Cancelada, devuelve stock.
             $objCompra = $objCompraEstado->getObjCompra(); 
             $idCompra = $objCompra->getIdcompra();
@@ -92,13 +95,20 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                     $rta = $objProducto->modificar(); // no lo modifica - sql error
                 }
                 // Cambiar estado tupla y generar una nueva de compraestado; 5
-                $idcompraestadotipo = 4;
-                $idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
+                if($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4){
+                    $idcompraestadotipo = 4;
+                    $contenido = 'Su compra ha pasado al estado de "Cancelada".';
+                }else{
+                    $idcompraestadotipo = 1;
+                    $contenido = 'Su compra ha pasado al estado de "Iniciada",';
+                }
+                //$idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
+                $idCompraEstado = Data::buscarKey('idcompraestado');
                 $rta = $objCompraEstadoCon->modificarEstado($idCompraEstado, $idcompraestadotipo);
                 if( $rta ){
                     $response = true;
                     //envio de mail
-                    $respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Cancelada".');
+                    $respupu = Mail::enviarMail($mail, $contenido);
                 } else {
                     $response = false;
                 }

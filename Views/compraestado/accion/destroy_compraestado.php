@@ -1,11 +1,11 @@
 <?php
 require_once('../../../config.php');
 $objCompraEstadoController = new CompraestadoController();
-$data = $objCompraEstadoController->buscarKey('idcompraestado');
-
+//$data = $objCompraEstadoController->buscarKey('idcompraestado');
+$idcompraestado = Data::buscarKey(('idcompraestado'));
 $respuesta = false;
-if($data != null){
-   $rta = $objCompraEstadoController->eliminar();
+if($idcompraestado != null){
+   $rta = $objCompraEstadoController->eliminar($idcompraestado);
    /* var_dump($rta);
    die(); */
    if( !$rta ){

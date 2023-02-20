@@ -3,7 +3,8 @@ require_once('../../../config.php');
 $objMenuCon = new MenuController();
 $retorno['respuesta'] = false;
 //borrar roles de menu
-$idmenu = $objMenuCon->buscarKey('idmenu');
+//$idmenu = $objMenuCon->buscarKey('idmenu');
+$idmenu = Data::buscarKey('idmenu');
 if ($idmenu != null) {
     $arraybus['idmenu'] = $idmenu;
     $rolesDeMenu = Menurol::listar($arraybus);
@@ -32,7 +33,8 @@ if ($idmenu != null) {
                 $data = $value->dameDatos();
                 $idrol = $data['idrol'];
                 //$rolesSimple[$data['idrol']] = false;
-                $guardarDato = $objMenuCon->buscarKey(("rol$idrol"));
+                //$guardarDato = $objMenuCon->buscarKey(("rol$idrol"));
+                $guardarDato = Data::buscarKey(("rol$idrol"));
                 //var_dump($guardarDato);
                 if ($guardarDato != null && $guardarDato == 'on') {
                     $rolesNuevos[$idrol] = $guardarDato;

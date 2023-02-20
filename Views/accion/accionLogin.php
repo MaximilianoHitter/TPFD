@@ -22,7 +22,9 @@ if( $rta == false ){
 
 if( $gola['rta'] ){
     $objSession = new SessionController();
-    $valido = $objSession->validarCredenciales();
+    $usnombre = Data::buscarKey('usnombre');
+    $uspass = Data::buscarKey('uspass');
+    $valido = $objSession->validarCredenciales($usnombre, $uspass);
     if( $valido ){
         $url = $PRODUCTOS;
     }

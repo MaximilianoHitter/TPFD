@@ -3,7 +3,7 @@
 class CompraestadotipoController extends MasterController{
     use Errores;
 
-    public function busqueda(){
+    /* public function busqueda(){
         $arrayBusqueda = [];
         $idCompraestadoTipo = $this->buscarKey('idcompraestadotipo');
         $cetdescripcion = $this->buscarKey('cetdescripcion');
@@ -14,7 +14,7 @@ class CompraestadotipoController extends MasterController{
             'cetdetalle' => $cetdetalle
         ];
         return $arrayBusqueda;
-    }
+    } */
 
     public function listarTodo(){
         //$arrayBusqueda = $this->busqueda();
@@ -32,7 +32,7 @@ class CompraestadotipoController extends MasterController{
 
 
     public function buscarId() {
-        $idBusqueda = $this->buscarKey( 'idcompraestadotipo' );
+        $idBusqueda = Data::buscarKey( 'idcompraestadotipo' );
         if( $idBusqueda == false ){
             // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
@@ -50,10 +50,10 @@ class CompraestadotipoController extends MasterController{
         }
     }
 
-    public function buscarIdDos(){
+    public function buscarIdDos($idcompraestadotipo){
         $rta['respuesta'] = false;
         $idBusqueda = [];
-        $idBusqueda['idcompraestadotipo'] = $this->buscarKey('idcompraestadotipo');
+        $idBusqueda['idcompraestadotipo'] = $idcompraestadotipo;
         $objCompraestadotipo = new Compraestadotipo();
         $objEncontrado = $objCompraestadotipo->buscar($idBusqueda);
         if($objEncontrado['respuesta']){
@@ -63,8 +63,8 @@ class CompraestadotipoController extends MasterController{
         return $rta;
     }
 
-    public function insertar(){
-        $data = $this->busqueda();
+    public function insertar($data){
+        //$data = $this->busqueda();
         $objCompraestadotipo = new Compraestadotipo();
         $objCompraestadotipo->setIdcompraestadotipo($data['idcompraestadotipo']);
         $objCompraestadotipo->setCetdescripcion($data['cetdescripcion']);
@@ -73,15 +73,15 @@ class CompraestadotipoController extends MasterController{
         return $rta;
     }
 
-    public function modificar(){
-        $rta = $this->buscarIdDos();
+    public function modificar($idcompraestadotipo, $datos){
+        $rta = $this->buscarIdDos($idcompraestadotipo);
         //var_dump($rta['respuesta']);
         $response = false;
         if($rta['respuesta']){
             //puedo modificar con los valores
-            $valores = $this->busqueda();
+            //$valores = $this->busqueda();
             $objCompraestadotipo = $rta['obj'];
-            $objCompraestadotipo->cargar($valores['cetdescripcion'], $valores['cetdetalle']);
+            $objCompraestadotipo->cargar($datos['cetdescripcion'], $datos['cetdetalle']);
             $rsta = $objCompraestadotipo->modificar();
             if($rsta['respuesta']){
                 //todo gut
@@ -91,8 +91,8 @@ class CompraestadotipoController extends MasterController{
         return $response;
     }
 
-    public function eliminar(){
-        $rta = $this->buscarIdDos();
+    public function eliminar($idcompraestadotipo){
+        $rta = $this->buscarIdDos($idcompraestadotipo);
         $response = false;
         if($rta['respuesta']){
             $objCompraestadotipo = $rta['obj'];
