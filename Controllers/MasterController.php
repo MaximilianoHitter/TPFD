@@ -6,14 +6,14 @@ class MasterController {
     use Data;
 
     // Traigo datos de get/post
-    public function getDatos(){
-        $datos = $this->data();
+    private static function getDatos(){
+        $datos = Data::data();
         return $datos;
     }
-
+    
     //Funcion para buscar la key
-    public function buscarKey( $key ){
-        $datos = $this->getDatos();
+    public static function buscarKey( $key ){
+        $datos = Data::getDatos();
         $post = $datos['POST'];
         $get = $datos['GET'];
         if( array_key_exists($key, $post) ){

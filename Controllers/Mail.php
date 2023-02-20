@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+//require_once('../config.php');
 /*require_once($ROOT.'Vendor/phpmailer/phpmailer/src/PHPMailer.php');
 require_once($ROOT.'Vendor/phpmailer/phpmailer/src/Exception.php');
 require_once($ROOT.'Vendor/phpmailer/phpmailer/src/SMTP.php'); */
@@ -9,6 +9,14 @@ use PHPMailer\PHPMailer\src\PHPMailer as PHPMailer;
 use SMTP; */
 /* require_once('includes/PHPMailer.php');
 require_once('includes/Exception.php'); */
+
+/* use phpmailer\PHPMailer;
+use phpmailer\SMTP;
+use PHPMailer\Exception; */
+
+/* require_once('../clases/phpmailer/PHPMailer.php');
+require_once('../clases/phpmailer/Exception.php');
+require_once('../clases/phpmailer/SMTP.php'); */
 
 
 trait Mail
@@ -29,7 +37,7 @@ trait Mail
         //set gmial user 
         $mail->Username = "maximliano.hitter@est.fi.uncoma.edu.ar";
         //set pass 
-        $mail->Password = "******";
+        $mail->Password = "*-*-*-*-*-*-";
         //set email subj 
         $mail->Subject = "Cambio de estado de la compra";
         //set sender 

@@ -175,6 +175,15 @@ try {
                     <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyRol()\">Deshabilitar Rol</a>";
                 }
                 ?>
+                <?php 
+                    /*  if( count($lista) >0){
+                        //$controlExcel = new ControlExcel();
+                        $ruta = Export::genera( $lista );
+                        echo "<a href=\"$ruta\" id=\"botoncito\" download=\"listado.xlsx\">Descargue todo el listado</a>";
+                    } else {
+                        echo "<div class=\"container\"><div class=\"alert alert-danger text-center m-4\" role=\"alert\">Actualmente no se poseen registros.</div></div>";
+                    } */
+                ?>
             </div>
 
             <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">

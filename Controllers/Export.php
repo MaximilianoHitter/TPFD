@@ -2,16 +2,16 @@
 /* require_once('../config.php'); */
 /* require_once('../Vendor/autoload.php'); */
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Spreadsheet;
+use Writer\Xlsx;
 
-trait Export {
+class Export {
     
-    public function genera($array) {
+    public static function genera($array) {
         //var_dump($array);
-        $arrayFinal = $array['array'];
-        $arrayTH = array('ID', 'Nombre y Apellido', 'Legajo', 'Materia', 'Nota');
-        array_unshift($arrayFinal, $arrayTH);
+        $arrayFinal = $array;
+        //$arrayTH = array('ID', 'Nombre y Apellido', 'Legajo', 'Materia', 'Nota');
+        //array_unshift($arrayFinal, $arrayTH);
         try {
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();

@@ -49,7 +49,7 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 if( $rta ){
                     $response = true;
                     //envio de mail
-                    //$respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
+                    $respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
                 } else {
                     $response = false;
                 }
@@ -98,7 +98,7 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 if( $rta ){
                     $response = true;
                     //envio de mail
-                    //$respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Cancelada".');
+                    $respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Cancelada".');
                 } else {
                     $response = false;
                 }
@@ -115,9 +115,10 @@ if( $idCompraEstado != NULL || $idCompraEstado !=  false ){
                 $objCompra->buscar(array('idcompra' => $idcompraestado));
                 $objUsuario = $objCompra->getObjUsuario();
                 $mail = $objUsuario->getUsmail();
-                $rsss = $objCompraEstadoCon->modificarEstado($idCompraestado, $idcompraestadotipo);
+                $rsss = $objCompraEstadoCon->modificarEstado($idcompraestado, $idcompraestadotipo);
                 //envio de mail
-                //$respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
+                $respupu = Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
+                $response = true;
             }elseif($idCompraEstadoTipoPorParametro == 4){
                 $idcompraestado = $objCompraEstado->getIdcompraestado();
                 $idcompraestadotipo = 4;
