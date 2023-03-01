@@ -1,11 +1,13 @@
 <?php
 
-class UsuarioRolController extends MasterController {
+class UsuarioRolController extends MasterController
+{
     use Errores;
 
-    public function listarTodo( $arrayBusqueda ){
-        $rta = Usuariorol::listar( $arrayBusqueda );
-        if( $rta['respuesta'] == true ){
+    public function listarTodo($arrayBusqueda)
+    {
+        $rta = Usuariorol::listar($arrayBusqueda);
+        if ($rta['respuesta'] == true) {
             //conversion
             $data['array'] = $rta['array'];
             $data['arrayHTML'] = [];
@@ -22,7 +24,7 @@ class UsuarioRolController extends MasterController {
                 array_push($data['arrayHTML'], $array);
             }
         } else {
-            $data['error'] = $this->manejarError( $rta );
+            $data['error'] = $this->manejarError($rta);
         }
         return $data;
     }
@@ -40,31 +42,33 @@ class UsuarioRolController extends MasterController {
         return $arrayBusqueda;
     } */
 
-    public function buscarRoles($idusuario){
+    public function buscarRoles($idusuario)
+    {
         //$idusuario = $this->buscarKey('idusuario');
         //var_dump($idusuario);
         $arrayBus = [];
         $arrayBus['idusuario'] = $idusuario;
         $rta = Usuariorol::listar($arrayBus);
         $listaRoles = [];
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             $listaRoles = $rta['array'];
         }
         return $listaRoles;
     }
 
-    public function buscarId() {
-        $idBusqueda = Data::buscarKey( 'idur' );
-        if( $idBusqueda == false ){
+    public function buscarId()
+    {
+        $idBusqueda = Data::buscarKey('idur');
+        if ($idBusqueda == false) {
             // Error
-            $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
+            $data['error'] = $this->warning('No se ha encontrado dicho registro');
         } else {
             // Se encontró
             $array['idur'] = $idBusqueda;
             $usuarioRol = new Usuariorol();
-            $rta = $usuarioRol->buscar( $array );
-            if( $rta['respuesta'] == false ){
-                $data['error'] = $this->manejarError( $rta );
+            $rta = $usuarioRol->buscar($array);
+            if ($rta['respuesta'] == false) {
+                $data['error'] = $this->manejarError($rta);
             } else {
                 $data['array'] = $usuarioRol;
             }
@@ -72,11 +76,12 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
-    public function buscarNombreUsuario() {
-        $idBusqueda = Data::buscarKey( 'usnombre' );
-        if( $idBusqueda == false ){
+    public function buscarNombreUsuario()
+    {
+        $idBusqueda = Data::buscarKey('usnombre');
+        if ($idBusqueda == false) {
             // Error
-            $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
+            $data['error'] = $this->warning('No se ha encontrado dicho registro');
         } else {
             // Se encontró
             $data = $idBusqueda;
@@ -84,16 +89,17 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
-    public function insertar($data) {
+    public function insertar($data)
+    {
         $newUsuarioRol = new Usuariorol();
         //$data = $this->busqueda();
 
-        $newUsuarioRol->setIdur( $data['idur'] );
-        $newUsuarioRol->setObjUsuario( $data['objUsuario'] );
-        $newUsuarioRol->setObjRol( $data['objRol'] );
+        $newUsuarioRol->setIdur($data['idur']);
+        $newUsuarioRol->setObjUsuario($data['objUsuario']);
+        $newUsuarioRol->setObjRol($data['objRol']);
 
         $operacion = $newUsuarioRol->insertar();
-        if( $operacion['respuesta'] == false ){
+        if ($operacion['respuesta'] == false) {
             $rta = $operacion['errorInfo'];
         } else {
             $rta = $operacion['respuesta'];
@@ -117,14 +123,15 @@ class UsuarioRolController extends MasterController {
         return $respuesta;
     } */
 
-    public function eliminar($idur){
+    public function eliminar($idur)
+    {
         $response = false;
         $arrayBus['idur'] = $idur;
         $objUsuarioRol = new UsuarioRol();
         $rta = $objUsuarioRol->buscar($arrayBus);
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             $rtaa = $objUsuarioRol->eliminar();
-            if($rtaa['respuesta']){
+            if ($rtaa['respuesta']) {
                 //se elimino
                 $response = true;
             }
@@ -132,21 +139,23 @@ class UsuarioRolController extends MasterController {
         return $response;
     }
 
-    public function getRoles(){
+    public function getRoles()
+    {
         $arrayBus = [];
         $listaRoles = Rol::listar($arrayBus);
-        if( isset($listaRoles['array']) ){
+        if (isset($listaRoles['array'])) {
             $lista = $listaRoles['array'];
         } else {
-            $lista = $listaRoles['respuesta']; 
+            $lista = $listaRoles['respuesta'];
         }
         return $lista;
     }
 
-    public function getRolesConIdUsuario($idUsuario){
+    public function getRolesConIdUsuario($idUsuario)
+    {
         $arrBUsuario['idusuario'] = $idUsuario;
         $rt = Usuariorol::listar($arrBUsuario);
-        if(array_key_exists('array', $rt)){
+        if (array_key_exists('array', $rt)) {
             //encontro los roles
             $roles = [];
             foreach ($rt['array'] as $key => $value) {
@@ -154,20 +163,22 @@ class UsuarioRolController extends MasterController {
                 array_push($roles, $objUsuRol);
             }
             $response = $roles;
-        }else{
+        } else {
             $response = false;
         }
         return $response;
     }
 
-    public function getUsuarios(){
+    public function getUsuarios()
+    {
         $arrayBus = [];
         $arrayBus['usdeshabilitado'] = NULL;
         $listaUsuarios = Usuario::listar($arrayBus);
         return $listaUsuarios['array'];
     }
 
-    public function obtenerNuevosRoles(){
+    public function obtenerNuevosRoles()
+    {
         $roles = $this->getRoles();
         $arrayRoles = [];
         foreach ($roles['array'] as $key => $value) {
@@ -180,9 +191,9 @@ class UsuarioRolController extends MasterController {
         foreach ($arrayRoles as $key => $value) {
             $rodescripcion = $value['rodescripcion'];
             $input = Data::buscarKey("$rodescripcion");
-            if($input != null){
+            if ($input != null) {
                 $campo = true;
-            }else{
+            } else {
                 $campo = false;
             }
             $arr[$rodescripcion] = $campo;
@@ -190,17 +201,19 @@ class UsuarioRolController extends MasterController {
         }
     }
 
-    public function baja( $param ){
+    public function baja($param)
+    {
         $bandera = false;
-        if( $param->getIdur !== null ){
-            if( $param->eliminar() ){
+        if ($param->getIdur !== null) {
+            if ($param->eliminar()) {
                 $bandera = true;
             }
         }
         return $bandera;
     }
 
-    public function dameDatos(){
+    public function dameDatos()
+    {
         $objUsuarioRol = new Usuariorol();
         $data = [];
         $data['idur'] = $objUsuarioRol->getIdur();
@@ -211,5 +224,71 @@ class UsuarioRolController extends MasterController {
         $data['idrol'] = $objRol->getIdrol();
         $objRol = null;
         return $data;
+    }
+
+    public function manejoDeRoles($idusuario)
+    {
+        if ($idusuario != null) {
+            $arraybus['idusuario'] = $idusuario;
+            $rolesDeUsuario = Usuariorol::listar($arraybus);
+            if ($rolesDeUsuario['respuesta']) {
+                if (count($rolesDeUsuario['array']) > 0) {
+                    foreach ($rolesDeUsuario['array'] as $key => $value) {
+                        $arrBus['idur'] = $value->getIdur();
+                        $objUsuarioRol = new Usuariorol();
+                        $objUsuarioRol->buscar($arrBus);
+                        $objUsuarioRol->eliminar();
+                        $objUsuarioRol = null;
+                    }
+                }
+            }
+            //cargar objeto de usuario
+            $objUsuario = new Usuario();
+            $arrayDeBus['idusuario'] = $idusuario;
+            $objUsuario->buscar($arrayDeBus);
+            //obtener los nuevos roles
+            $arrayRoles = $this->getRoles();
+            $rolesNuevos = [];
+            $rolesSimple = [];
+            if (count($arrayRoles) > 0) {
+                foreach ($arrayRoles as $key => $value) {
+                    $data = $value->dameDatos();
+                    $idrol = $data['idrol'];
+                    //$rolesSimple[$data['idrol']] = false;
+                    //$guardarDato = $objUsuarioRolCon->buscarKey(("rol$idrol"));
+                    $guardarDato = Data::buscarKey(("rol$idrol"));
+                    //var_dump($guardarDato);
+                    if ($guardarDato != null && $guardarDato == 'on') {
+                        $rolesNuevos[$idrol] = $guardarDato;
+                    }
+                }
+                //var_dump($rolesNuevos);
+                //cargar los nuevos roles
+                foreach ($rolesNuevos as $key => $value) {
+                    $aBus['idrol'] = $key;
+                    if ($value == 'on') {
+                        $objRol = new Rol();
+                        $objRol->buscar($aBus);
+                        $objUsuarioRol = new UsuarioRol();
+                        $objUsuarioRol->cargar($objUsuario, $objRol);
+                        $objUsuarioRol->insertar();
+                        $objRol = null;
+                        $objUsuarioRol = null;
+                    }
+                }
+                $respuesta = true;
+            } else {
+                $respuesta = false;
+                $mensaje = 'No hay roles cargados';
+            }
+        } else {
+            $respuesta = false;
+            $mensaje = 'No se ha podido realizar la operacion';
+        }
+        $retorno[0] = $respuesta;
+        if(isset($mensaje)){
+            $retorno[1] = $mensaje;
+        }
+        return $retorno;
     }
 }
