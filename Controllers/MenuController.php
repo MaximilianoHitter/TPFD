@@ -1,30 +1,33 @@
 <?php
-class MenuController extends MasterController {
+class MenuController extends MasterController
+{
     use Errores;
 
-    public function listarTodo($arralgo = NULL){
-        if($arralgo == NULL){
+    public function listarTodo($arralgo = NULL)
+    {
+        if ($arralgo == NULL) {
             $arrBu = [];
-        }else{
+        } else {
             $arrBu = $arralgo;
         }
         //$arrayBus['medeshabilitado'] = NULL;
         $arrayTotal = Menu::listar($arrBu);
-        if(array_key_exists('array', $arrayTotal)){
+        if (array_key_exists('array', $arrayTotal)) {
             $array = $arrayTotal['array'];
-        }else{
+        } else {
             $array = [];
         }
         return $array;
     }
 
-    public function listar_menu_padre(){
+    public function listar_menu_padre()
+    {
         $idmenu = Data::buscarKey('idmenu');
         $array = Menu::darMenuesSinMenu($idmenu);
         return $array;
     }
 
-   /*  public function busqueda(){
+    /*  public function busqueda(){
         $arrayBusqueda = [];
         $idmenu = $this->buscarKey('idmenu');
         $menombre = $this->buscarKey('menombre');
@@ -40,7 +43,8 @@ class MenuController extends MasterController {
         return $arrayBusqueda;
     } */
 
-    public function insertar($data){
+    public function insertar($data)
+    {
         //$data = $this->busqueda();
         $objMenu = new Menu();
         $objMenu->setIdmenu(NULL);
@@ -57,16 +61,17 @@ class MenuController extends MasterController {
         return $rta;
     }
 
-    public function modificar($idmenu, $valores){
+    public function modificar($idmenu, $valores)
+    {
         $rta = $this->buscarId($idmenu);
         $response = false;
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             //puedo modificar con los valores
             //$valores = $this->busqueda();
             $objMenu = $rta['obj'];
             $objMenu->cargar($valores['menombre'], $valores['medescripcion'], $valores['idpadre']);
             $rsta = $objMenu->modificar();
-            if($rsta['respuesta']){
+            if ($rsta['respuesta']) {
                 //todo gut
                 $response = true;
             }
@@ -74,7 +79,8 @@ class MenuController extends MasterController {
         return $response;
     }
 
-    public function buscarId($idmenu){
+    public function buscarId($idmenu)
+    {
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
@@ -82,54 +88,58 @@ class MenuController extends MasterController {
         $arrayBusqueda['idmenu'] = $idmenu;
         $objMenu = new Menu();
         $rta = $objMenu->buscar($arrayBusqueda);
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             $respuesta['respuesta'] = true;
             $respuesta['obj'] = $objMenu;
-        }else{
+        } else {
             $respuesta['error'] = $rta;
         }
-        return $respuesta;        
+        return $respuesta;
     }
 
-    public function eliminar($idmenu){
+    public function eliminar($idmenu)
+    {
         $rta = $this->buscarId($idmenu);
         $response = false;
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             $objMenu = $rta['obj'];
             $respEliminar = $objMenu->eliminar();
-            if($respEliminar['respuesta']){
+            if ($respEliminar['respuesta']) {
                 $response = true;
             }
-        }else{
+        } else {
             //no encontro el obj
             $response = false;
         }
         return $response;
     }
 
-    public function Noeliminar($idmenu){
+    public function Noeliminar($idmenu)
+    {
         $rta = $this->buscarId($idmenu);
         $response = false;
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             $objMenu = $rta['obj'];
             $respEliminar = $objMenu->Noeliminar();
-            if($respEliminar['respuesta']){
+            if ($respEliminar['respuesta']) {
                 $response = true;
             }
-        }else{
+        } else {
             //no encontro el obj
             $response = false;
         }
         return $response;
     }
 
-    public function getRoles(){
+    public function getRoles()
+    {
         $arrayBus = [];
         $listaRoles = Rol::listar($arrayBus);
         return $listaRoles['array'];
     }
 
-    public function obtenerMenuesPorRol($idrol){
+    public function obtenerMenuesPorRol($idrol)
+    {
         $arrayBu['idrol'] = $idrol;
         $arrayMenues = Menurol::listar($arrayBu);
         $arrayRepasado = [];
@@ -147,15 +157,14 @@ class MenuController extends MasterController {
         foreach ($arrayRepasado as $key => $value) {
             $datosMenu = $value['idmenu'];
             $idpadre = $datosMenu['idpadre'];
-            if($idpadre != 0){
+            if ($idpadre != 0) {
                 $nombreMenu = $datosMenu['menombre'];
-                if(!isset($arrayHijos[$idpadre])){
+                if (!isset($arrayHijos[$idpadre])) {
                     $arrayHijos[$idpadre] = [];
                     array_push($arrayHijos[$idpadre], $nombreMenu);
-                }else{
+                } else {
                     array_push($arrayHijos[$idpadre], $nombreMenu);
                 }
-                
             }
         }
         //return $arrayHijos;
@@ -163,25 +172,25 @@ class MenuController extends MasterController {
             $datosMenu = $value['idmenu'];
             $idpadre = $datosMenu['idpadre'];
             $idmenu = $datosMenu['idmenu'];
-            if($idpadre == 0){
+            if ($idpadre == 0) {
                 $nombreMenu = $datosMenu['menombre'];
                 array_push($arrayPadres, $nombreMenu);
-                if(array_key_exists($idmenu, $arrayHijos)){
+                if (array_key_exists($idmenu, $arrayHijos)) {
                     $hijos = $arrayHijos[$idmenu];
-                    if(!isset($arrayPadres[$nombreMenu])){
+                    if (!isset($arrayPadres[$nombreMenu])) {
                         $arrayPadres[$nombreMenu] = $hijos;
-                    }else{
+                    } else {
                         array_push($arrayPadres[$nombreMenu], $hijos);
                     }
-                } else{
+                } else {
                     $arr = [];
                     $arrayPadres[$nombreMenu] = $arr;
                     //array_push($arrayPadres[$nombreMenu], $arr);
-                }         
+                }
             }
         }
 
-    return $arrayPadres;
+        return $arrayPadres;
         foreach ($arrayPadres as $key => $value) {
             array_push($arrayRta['Home'], $value);
         }
@@ -194,19 +203,19 @@ class MenuController extends MasterController {
         //return $arrayMenues;
         //var_dump($arrayMenues['array']);
         //convertir y traer todos los menues
-        if(array_key_exists('array', $arrayMenues)){
+        if (array_key_exists('array', $arrayMenues)) {
             $arrayRta = [];
             $arrayRta['Home'] = [];
             foreach ($arrayMenues['array'] as $key => $value) {
                 $objMenu = $value->getObjMenu();
                 $PadreObj = $objMenu->getObjPadre();
-                if($PadreObj == NULL || $PadreObj->getIdmenu() == 0){
+                if ($PadreObj == NULL || $PadreObj->getIdmenu() == 0) {
                     $nombreMenu = $objMenu->getMenombre();
                     $arr = [];
                     $arr[$nombreMenu] = [];
                     //var_dump($objMenu);
                     array_push($arrayRta['Home'], $arr);
-                }    
+                }
             }
             //var_dump($arrayRta);
             //return $arrayRta;
@@ -224,27 +233,91 @@ class MenuController extends MasterController {
                         } catch (\Throwable $th) {
                             $nombrePapa = 0;
                         }
-                        if($nombrePapa != 0){
-                            if($nombrePadre == $nombrePapa){
+                        if ($nombrePapa != 0) {
+                            if ($nombrePadre == $nombrePapa) {
                                 $nombreMenu = $objMenu->getMenombre();
                                 array_push($arrayRta['Home'][$nombrePadre], $nombreMenu);
                             }
                         }
-                        
                     }
                 }
-                
             }
-                    
-        }else{
+        } else {
             $arrayRta = ['nada'];
         }
         return $arrayRta;
     }
 
-    public function getLink( $paramMeNombre ){
+    public function getLink($paramMeNombre)
+    {
         $objMenu = new Menu();
-        $link = $objMenu->buscar( $paramMeNombre['menombre'] );
+        $link = $objMenu->buscar($paramMeNombre['menombre']);
         return $link;
+    }
+
+    public function temaRoles($idmenu)
+    {
+        if ($idmenu != null) {
+            $arraybus['idmenu'] = $idmenu;
+            $rolesDeMenu = Menurol::listar($arraybus);
+            if ($rolesDeMenu['respuesta']) {
+                if (count($rolesDeMenu['array']) > 0) {
+                    foreach ($rolesDeMenu['array'] as $key => $value) {
+                        $arrBus['idmr'] = $value->getIdmr();
+                        $objMenurol = new Menurol();
+                        $objMenurol->buscar($arrBus);
+                        $objMenurol->eliminar();
+                        $objMenurol = null;
+                    }
+                }
+            }
+            //cargar objeto de menu
+            $objMenu = new Menu();
+            $arrayDeBus['idmenu'] = $idmenu;
+            $objMenu->buscar($arrayDeBus);
+            //obtener los nuevos roles
+            $arrayRoles = $this->getRoles();
+            $rolesNuevos = [];
+            $rolesSimple = [];
+            if (count($arrayRoles) > 0) {
+                foreach ($arrayRoles as $key => $value) {
+                    $data = $value->dameDatos();
+                    $idrol = $data['idrol'];
+                    //$rolesSimple[$data['idrol']] = false;
+                    //$guardarDato = $objMenuCon->buscarKey(("rol$idrol"));
+                    $guardarDato = Data::buscarKey(("rol$idrol"));
+                    //var_dump($guardarDato);
+                    if ($guardarDato != null && $guardarDato == 'on') {
+                        $rolesNuevos[$idrol] = $guardarDato;
+                    }
+                }
+                //var_dump($rolesNuevos);
+                //cargar los nuevos roles
+                foreach ($rolesNuevos as $key => $value) {
+                    $aBus['idrol'] = $key;
+                    if ($value == 'on') {
+                        $objRol = new Rol();
+                        $objRol->buscar($aBus);
+                        $objMenurol = new Menurol();
+                        $objMenurol->cargar($objMenu, $objRol);
+                        $objMenurol->insertar();
+                        $objRol = null;
+                        $objMenurol = null;
+                    }
+                }
+                $respuesta = true;
+            } else {
+                $respuesta = false;
+                $mensaje = 'No hay roles cargados';
+            }
+        } else {
+            $respuesta = false;
+            $mensaje = 'No se ha podido realizar la operacion';
+        }
+        $retorno[0] = $respuesta;
+        if(isset($mensaje)){
+            $retorno[1] = $mensaje;
+        }
+        return $retorno;
     }
 }
