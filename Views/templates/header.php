@@ -56,10 +56,7 @@
     <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
     <link rel="stylesheet" href="../../Vendor/themes/icon.css">
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <script src="../../Vendor/datatables/jQuery-3.6.0/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../Vendor/datatables/datatables.min.css"/>
- 
-        <script type="text/javascript" src="../../Vendor/datatables/datatables.min.js"></script>
+    
 
     
 </head>

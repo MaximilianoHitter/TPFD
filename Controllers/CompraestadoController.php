@@ -306,16 +306,147 @@ class CompraestadoController extends MasterController {
         return $respuesta;
     }
 
-   
+    public function verificar($idCompraEstado, $idCompraEstadoTipoPorParametro){
+        if($idCompraEstado != NULL || $idCompraEstado != false){
+            $rta = $this->buscarId($idCompraEstado);
+            if(array_key_exists('obj', $rta)){
+                $objCompraEstado = $rta['obj'];
+                $objCompraEstadoTipoActual = $objCompraEstado->getObjCompraestadotipo();
+                $idCompraEstadoTipoActual = $objCompraEstadoTipoActual->getIdcompraestadotipo();
+                if($idCompraEstadoTipoActual != $idCompraEstadoTipoPorParametro){
+                    if($idCompraEstadoTipoPorParametro == '2' || $idCompraEstadoTipoPorParametro == 2){
+                        $objCompra = $objCompraEstado->getObjCompra(); 
+                        $idCompra = $objCompra->getIdcompra();
+                        $objUsuario = $objCompra->getObjUsuario();
+                        $mail = $objUsuario->getUsmail();
+                        $objCompraItemCon = new CompraitemController();
+                        $arrBusIdCompra['idcompra'] = $idCompra;
+                        $listaCarrito = $objCompraItemCon->listarTodo( $arrBusIdCompra );
+                        $banderaSePuedeDescontar = false;
+                        foreach( $listaCarrito as $key => $value ){
+                            $cicantidad = $value->getCicantidad();
+                            $objProducto = $value->getObjproducto();
+                            $stock = $objProducto->getProCantStock();
+                            if( $cicantidad > $stock ){
+                                $banderaSePuedeDescontar = true;
+                            }
+                        }
+                        if( !$banderaSePuedeDescontar ){
+                        // A descontar stock
+                            foreach( $listaCarrito as $key => $value ){
+                                $cicantidad = $value->getCicantidad();
+                                $objProducto = $value->getObjProducto();
+                                $stock = $objProducto->getProCantStock();
+                                $nuevoStock = $stock - $cicantidad;
+                                $rta = $objProducto->setProCantStock( $nuevoStock );
+                                $rta = $objProducto->modificar(); // no lo modifica - sql error
+                            }
+                            $idcompraestadotipo = 2;
+                            $rta = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
+                            if($rta){
+                                $respuesta = true;
+                                Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
+                            }else{
+                                $respuesta = false;
+                            }
+                        }else{
+                            $respuesta = false;
+                            $mensaje = 'Un producto supera el stock';
+                        }
+                    }elseif($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4 || $idCompraEstadoTipoPorParametro == '1' || $idCompraEstadoTipoPorParametro == 1){
+                        // Cancelada, devuelve stock.
+                        $objCompra = $objCompraEstado->getObjCompra(); 
+                        $idCompra = $objCompra->getIdcompra();
+                        $objUsuario = $objCompra->getObjUsuario();
+                        $mail = $objUsuario->getUsmail();
+                        $objCompraItemCon = new CompraitemController();
+                        $arrBusIdCompra['idcompra'] = $idCompra;
+                        $listaCarrito = $objCompraItemCon->listarTodo( $arrBusIdCompra );
+                        $banderaSePuedeSumar = false;
+                        foreach( $listaCarrito as $key => $value ){
+                            $cicantidad = $value->getCicantidad();
+                            $objProducto = $value->getObjproducto();
+                            $stock = $objProducto->getProCantStock();
+                            if( $cicantidad < $stock ){
+                                $banderaSePuedeSumar = true;
+                            }
+                        }
+                        if( $banderaSePuedeSumar ){
+                        // A sumar stock
+                            foreach( $listaCarrito as $key => $value ){
+                                $cicantidad = $value->getCicantidad();
 
-    
-   
+                                $objProducto = $value->getObjProducto();
+                                $stock = $objProducto->getProCantStock();
 
+                                /* if( $stock >= $cicantidad ){
+                                    $nuevoStock = $stock;
+                                 } else { */
+                                $nuevoStock = $stock + $cicantidad;
+                                //}
+                                $objProducto->setProCantStock( $nuevoStock );
+                                $rta = $objProducto->modificar(); // no lo modifica - sql error
+                            }
+                            // Cambiar estado tupla y generar una nueva de compraestado; 5
+                            if($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4){
+                                $idcompraestadotipo = 4;
+                                $contenido = 'Su compra ha pasado al estado de "Cancelada".';
+                            }else{
+                                $idcompraestadotipo = 1;
+                                $contenido = 'Su compra ha pasado al estado de "Iniciada",';
+                            }
+                            //$idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
+                            $idCompraEstado = Data::buscarKey('idcompraestado');
+                            $rta = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
+                            if( $rta ){
+                                $respuesta = true;
+                                //envio de mail
+                                Mail::enviarMail($mail, $contenido);
+                            } else {
+                                $respuesta = false;
+                            }
+                        } else {
+                            $respuesta = false;
+                            $mensaje = 'Ha ocurrido un error.';
+                        }
+                    }else{
+                        //cambio de estado solamente 5
+                        if($idCompraEstadoTipoPorParametro == 3){
+                            //$idcompraestado = $this->getIdcompraestado();
+                            $objCompra = $objCompraEstado->getObjCompra(); 
+                            $idCompra = $objCompra->getIdcompra();
+                            $objUsuario = $objCompra->getObjUsuario();
+                            $mail = $objUsuario->getUsmail();
+                            $idcompraestadotipo = 3;
+                            $rsss = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
+                            //envio de mail
+                            Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
+                            $respuesta = true;
+                        }/*elseif($idCompraEstadoTipoPorParametro == 4){
+                            $idcompraestado = $objCompraEstado->getIdcompraestado();
+                            $idcompraestadotipo = 4;
+                            $objCompra = new Compra();
+                            $objCompra->buscar(array('idcompra' => $idcompraestado));
+                            $objUsuario = $objCompra->getObjUsuario();
+                            $mail = $objUsuario->getUsmail();
+                            $rsss = $this->modificarEstado($idCompraestado, $idcompraestadotipo);
+                            //envio de mail
+                        }*/
+                    }
+                }else{
+                    $respuesta = false;
+                    $mensaje = 'Esa compra ya se encuentra en ese estado';
+                }
+        }else{
+            $respuesta = false;
+            $mensaje = 'No se encontro el obj compra estado';
+        }
+        $retorno[0] = $respuesta;
+        if(isset($mensaje)){
+            $retorno[1] = $mensaje;
+        }
+        return $retorno;
+    }    
+}
 
-    
-
-
-
-
-    
 }

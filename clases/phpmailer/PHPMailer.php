@@ -18,9 +18,11 @@
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
+//require_once('Exception.php');
+//require_once('SMTP.php');
 
-use Exception;
-use SMTP;
+//use Exception;
+//use SMTP;
 
 /**
  * PHPMailer - PHP email creation and transport class.
