@@ -183,4 +183,30 @@ class CompraitemController extends MasterController
             $cantidadTraida = $this->getCicantidad();
 
         }*/
+
+    public function editarCantidad($idcompraitem, $idproducto, $cicantidad){
+        $erspuesta = false;
+        if ($idcompraitem != null) {
+            //FUNCION EN CONTROLADOR PAR AQUE TRAIGA LA CANTIDAD DE PRODUCTO
+            //FUNCION PARA COMPRAR 
+            $cantTotal = $this->stockTotal($idproducto);
+            if ($cantTotal >= $cicantidad) {
+                $rta = $this->modificar($idcompraitem, $cicantidad);
+            }
+            if (!$rta) {
+                $mensaje = "La accion no pudo concretarse";
+            }else{
+                $respuesta = true;
+            }
+        } else {
+            $mensaje = 'No hay en stock esa cantidad';
+            $rta = false;
+        }
+        $resp[0] = $rta;
+        if(isset($mensaje)){
+            $resp[1] = $mensaje;
+        }
+        return $resp;
+    }
+    
 }
