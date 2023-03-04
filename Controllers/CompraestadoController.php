@@ -1,6 +1,7 @@
 <?php
 //NO USARLO PORQUE STA AL PEDO
-class CompraestadoController extends MasterController {
+class CompraestadoController extends MasterController
+{
     use Errores;
 
     //crea array para la busqueda
@@ -11,7 +12,7 @@ class CompraestadoController extends MasterController {
         $idcompraestadotipo = $this->buscarKey('idcompraestadotipo');
         $cefechaini = $this->buscarKey('cefechaini');
         /* $cefechafin = $this->buscarKey('cefechafin'); */
-        /*$arrayBusqueda = ['idcompraestado' => $idcompraestado,
+    /*$arrayBusqueda = ['idcompraestado' => $idcompraestado,
                           'idcompra' => $idcompra,
                           'idcompraestadotipo' => $idcompraestadotipo,
                           'cefechaini' => $cefechaini,
@@ -19,21 +20,23 @@ class CompraestadoController extends MasterController {
         return $arrayBusqueda;
     } */
 
-    public function listarTodo($arrayBusqueda){
+    public function listarTodo($arrayBusqueda)
+    {
         //$arrayBusqueda = $this->busqueda();
         //$arrayBusqueda['cefechafin'] = NULL;
         $arrayTotal = Compraestado::listar($arrayBusqueda);
-        if(array_key_exists('array', $arrayTotal)){
+        if (array_key_exists('array', $arrayTotal)) {
             $array = $arrayTotal['array'];
-        }else{
+        } else {
             $array = [];
         }
-        
+
         //var_dump($array);
-        return $array;        
+        return $array;
     }
 
-    public function buscarId($idcompraestado){
+    public function buscarId($idcompraestado)
+    {
         $respuesta['respuesta'] = false;
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
@@ -42,16 +45,17 @@ class CompraestadoController extends MasterController {
         $objCompraestado = new Compraestado();
         $rta = $objCompraestado->buscar($arrayBusqueda);
         //var_dump($objCompraestado);
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             $respuesta['respuesta'] = true;
             $respuesta['obj'] = $objCompraestado;
-        }else{
+        } else {
             $respuesta['error'] = $rta;
         }
-        return $respuesta;        
+        return $respuesta;
     }
 
-    public function insertarCompraEstadoNueva($idcompra){
+    public function insertarCompraEstadoNueva($idcompra)
+    {
         $objCompraEstado = new Compraestado();
         //generar objeto de compraestadotipo
         $arrBusCET['idcompraestadotipo'] = 1;
@@ -63,9 +67,9 @@ class CompraestadoController extends MasterController {
         $objCompra->buscar($arrBusC);
         $objCompraEstado->cargar($objCompra, $objCompraEstadoTipo);
         $rsta = $objCompraEstado->insertar();
-        if($rsta['respuesta']){
+        if ($rsta['respuesta']) {
             $response = true;
-        }else{
+        } else {
             $response = false;
         }
         return $response;
@@ -89,7 +93,7 @@ class CompraestadoController extends MasterController {
         return $rta;
     } */
 
-    
+
 
     /* public function modificar(){
         $rta = $this->buscarId();
@@ -101,16 +105,16 @@ class CompraestadoController extends MasterController {
             $objCompraestado = $rta['obj'];
             /* $objCompraestado->cargar($valores['idcompraestado'], $valores['idcompra'], $valores['idcompraestadotipo'], $valores['cefechaini'], $valores['cefechafin']); */
 
-            /* $objCompra = new Compra();
+    /* $objCompra = new Compra();
             $arridcompra = ['idcompra' => $valores['idcompra']];
             $objCompra->buscar($arridcompra);
             $objCompraestado->setObjCompra($objCompra);
 
             $objCompraestadotipo = new Compraestadotipo();
             $arridcompraestadotpo = ['idcompraestadotipo' => $valores['idcompraestadotipo']]; */
-            /* var_dump($arridcompraestadotpo);
+    /* var_dump($arridcompraestadotpo);
             die(); */
-           /*  $objCompraestadotipo->buscar($arridcompraestadotpo);
+    /*  $objCompraestadotipo->buscar($arridcompraestadotpo);
             $objCompraestado->setObjCompraestadotipo($objCompraestadotipo);
 
             $rsta = $objCompraestado->modificar();
@@ -126,13 +130,14 @@ class CompraestadoController extends MasterController {
     }  */
 
 
-    public function eliminar($idcompraestado){
+    public function eliminar($idcompraestado)
+    {
         $rta = $this->buscarId($idcompraestado);
         $response = false;
-        if( $rta['respuesta'] ){
+        if ($rta['respuesta']) {
             $objProducto = $rta['obj'];
             $respEliminar = $objProducto->eliminar();
-            if( $respEliminar['respuesta'] ){
+            if ($respEliminar['respuesta']) {
                 $response = true;
             }
         } else {
@@ -142,7 +147,8 @@ class CompraestadoController extends MasterController {
         return $response;
     }
 
-    public function obtenerCompraActivaPorId($idcompra){
+    public function obtenerCompraActivaPorId($idcompra)
+    {
         $arrBus = [];
         $arrBus['idcompra'] = $idcompra;
         $arrBus['idcompraestadotipo'] = 1;
@@ -150,13 +156,13 @@ class CompraestadoController extends MasterController {
         $objCompraEstado = new Compraestado();
         $rta = $objCompraEstado->buscar($arrBus);
         $respuesta = false;
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             //salio bien la query
             $objCompra = new Compra();
             $objCompra = $objCompraEstado->getObjCompra();
             $idcompra = $objCompra->getIdcompra();
             //$objCompraEstado->getObjCompra()->getIdcompra() != NULL
-            if($idcompra != NULL){
+            if ($idcompra != NULL) {
                 //hay una compra activa
                 //$respuesta = $objCompraEstado->getObjCompra()->getIdcompra();
                 $respuesta = $idcompra;
@@ -223,11 +229,12 @@ class CompraestadoController extends MasterController {
         
         return $respuesta;
     } */
-    
+
 
     //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
     //tengo que traer la compra, el compraitem y producto
-    public function cambiarStocksegunEstado($objCompraestado){
+    public function cambiarStocksegunEstado($objCompraestado)
+    {
         //buscar el valor de la key enviada cmo compraestadotipo
         $data = Data::buscarKey('idcompraestadotipo');
         //obtengo el obj compra que tiene el objeto
@@ -237,194 +244,195 @@ class CompraestadoController extends MasterController {
         //obtengo el id de la compra
         $idCompra = $objCompra->getIdcompra();
         //hacemos bandera
-        $respuesta = [];                
+        $respuesta = [];
         //creo un array para realizar la bsuqueda de eso en el parametro en compraitem
         $array = [];
         $array['idcompra'] = $idCompra;
         //$objCompraitem = new Compraitem();
         $arraycompraitem = Compraitem::listar($array);
-        if(array_key_exists('array', $arraycompraitem)){
+        if (array_key_exists('array', $arraycompraitem)) {
             $listaCompraitem = $arraycompraitem['array'];
             foreach ($listaCompraitem as $key => $value) {
                 $objCompraitem = $value;
                 $cantidadComprada = $objCompraitem->getCicantidad();
                 $producto = $objCompraitem->getObjProducto();
                 $cantidadtotal = $producto->getProCantStock();
-                if($data == "2"){
-                    if($cantidadtotal > $cantidadComprada){
+                if ($data == "2") {
+                    if ($cantidadtotal > $cantidadComprada) {
                         $totalyn = $cantidadtotal - $cantidadComprada;
                         $producto->setProCantStock($totalyn);
                         $respuesta['respuesta'] = true;
-                        
-                    }else{
+                    } else {
                         $mensaje = "Tiene stock insuficiente";
                         $respuesta['mensaje'] = $mensaje;
                         $respuesta['respuesta'] = false;
-                        
                     }
-                }elseif ($data == 4) {
+                } elseif ($data == 4) {
                     //hacer que vuelva a sumar el stock
                     $totalito = $cantidadtotal + $cantidadComprada;
                     $producto->setProCantStock($totalito);
                     $respuesta['respuesta'] = true;
-                }elseif ($data == 3) {
-                        //se deja igual el stock pero se envia true para que siga el proceso
-                        $respuesta['respuesta'] = true;
-                }else{
+                } elseif ($data == 3) {
+                    //se deja igual el stock pero se envia true para que siga el proceso
+                    $respuesta['respuesta'] = true;
+                } else {
                     $mensaje = "Debe cambiar el estado tipo";
                     $respuesta['mensaje'] = $mensaje;
                     $respuesta['respuesta'] = false;
-                }    
-            } 
-        }else{
+                }
+            }
+        } else {
             $respuesta['respuesta'] = false;
-            $respuesta['mensaje'] = "No existen items en su compra";  
+            $respuesta['mensaje'] = "No existen items en su compra";
         }
-        return $respuesta;    
+        return $respuesta;
     }
 
-    public function modificarEstado($idcompraestado, $idcompraestadotipo){
+    public function modificarEstado($idcompraestado, $idcompraestadotipo)
+    {
 
         $objCompraEstado = new Compraestado();
         $arrBusCompraEstado['idcompraestado'] = $idcompraestado;
         $rta = $objCompraEstado->buscar($arrBusCompraEstado);
-        if($rta['respuesta']){
+        if ($rta['respuesta']) {
             //cambio de estado
             $objCompraestadotipo = new Compraestadotipo();
             $arrB['idcompraestadotipo'] = $idcompraestadotipo;
             $objCompraestadotipo->buscar($arrB);
             //$objCompraEstado->setObjCompraestadotipo($objCompraestadotipo);
             $bandera = $objCompraEstado->modificar();
-            if($bandera['respuesta']){
+            if ($bandera['respuesta']) {
                 $respuesta = true;
                 $objCompraEstado->setObjCompraestadotipo($objCompraestadotipo);
                 $objCompraEstado->insertar();
-            }else{
+            } else {
                 $respuesta = false;
             }
-        }else{
+        } else {
             $respuesta = false;
         }
         return $respuesta;
     }
 
-    public function verificar($idCompraEstado, $idCompraEstadoTipoPorParametro){
-        if($idCompraEstado != NULL || $idCompraEstado != false){
+    public function verificar($idCompraEstado, $idCompraEstadoTipoPorParametro)
+    {
+        if ($idCompraEstado != NULL || $idCompraEstado != false) {
             $rta = $this->buscarId($idCompraEstado);
-            if(array_key_exists('obj', $rta)){
+            if (array_key_exists('obj', $rta)) {
                 $objCompraEstado = $rta['obj'];
-                $objCompraEstadoTipoActual = $objCompraEstado->getObjCompraestadotipo();
-                $idCompraEstadoTipoActual = $objCompraEstadoTipoActual->getIdcompraestadotipo();
-                if($idCompraEstadoTipoActual != $idCompraEstadoTipoPorParametro){
-                    if($idCompraEstadoTipoPorParametro == '2' || $idCompraEstadoTipoPorParametro == 2){
-                        $objCompra = $objCompraEstado->getObjCompra(); 
-                        $idCompra = $objCompra->getIdcompra();
-                        $objUsuario = $objCompra->getObjUsuario();
-                        $mail = $objUsuario->getUsmail();
-                        $objCompraItemCon = new CompraitemController();
-                        $arrBusIdCompra['idcompra'] = $idCompra;
-                        $listaCarrito = $objCompraItemCon->listarTodo( $arrBusIdCompra );
-                        $banderaSePuedeDescontar = false;
-                        foreach( $listaCarrito as $key => $value ){
-                            $cicantidad = $value->getCicantidad();
-                            $objProducto = $value->getObjproducto();
-                            $stock = $objProducto->getProCantStock();
-                            if( $cicantidad > $stock ){
-                                $banderaSePuedeDescontar = true;
-                            }
-                        }
-                        if( !$banderaSePuedeDescontar ){
-                        // A descontar stock
-                            foreach( $listaCarrito as $key => $value ){
-                                $cicantidad = $value->getCicantidad();
-                                $objProducto = $value->getObjProducto();
-                                $stock = $objProducto->getProCantStock();
-                                $nuevoStock = $stock - $cicantidad;
-                                $rta = $objProducto->setProCantStock( $nuevoStock );
-                                $rta = $objProducto->modificar(); // no lo modifica - sql error
-                            }
-                            $idcompraestadotipo = 2;
-                            $rta = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
-                            if($rta){
-                                $respuesta = true;
-                                Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
-                            }else{
-                                $respuesta = false;
-                            }
-                        }else{
-                            $respuesta = false;
-                            $mensaje = 'Un producto supera el stock';
-                        }
-                    }elseif($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4 || $idCompraEstadoTipoPorParametro == '1' || $idCompraEstadoTipoPorParametro == 1){
-                        // Cancelada, devuelve stock.
-                        $objCompra = $objCompraEstado->getObjCompra(); 
-                        $idCompra = $objCompra->getIdcompra();
-                        $objUsuario = $objCompra->getObjUsuario();
-                        $mail = $objUsuario->getUsmail();
-                        $objCompraItemCon = new CompraitemController();
-                        $arrBusIdCompra['idcompra'] = $idCompra;
-                        $listaCarrito = $objCompraItemCon->listarTodo( $arrBusIdCompra );
-                        $banderaSePuedeSumar = false;
-                        foreach( $listaCarrito as $key => $value ){
-                            $cicantidad = $value->getCicantidad();
-                            $objProducto = $value->getObjproducto();
-                            $stock = $objProducto->getProCantStock();
-                            if( $cicantidad < $stock ){
-                                $banderaSePuedeSumar = true;
-                            }
-                        }
-                        if( $banderaSePuedeSumar ){
-                        // A sumar stock
-                            foreach( $listaCarrito as $key => $value ){
-                                $cicantidad = $value->getCicantidad();
-
-                                $objProducto = $value->getObjProducto();
-                                $stock = $objProducto->getProCantStock();
-
-                                /* if( $stock >= $cicantidad ){
-                                    $nuevoStock = $stock;
-                                 } else { */
-                                $nuevoStock = $stock + $cicantidad;
-                                //}
-                                $objProducto->setProCantStock( $nuevoStock );
-                                $rta = $objProducto->modificar(); // no lo modifica - sql error
-                            }
-                            // Cambiar estado tupla y generar una nueva de compraestado; 5
-                            if($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4){
-                                $idcompraestadotipo = 4;
-                                $contenido = 'Su compra ha pasado al estado de "Cancelada".';
-                            }else{
-                                $idcompraestadotipo = 1;
-                                $contenido = 'Su compra ha pasado al estado de "Iniciada",';
-                            }
-                            //$idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
-                            $idCompraEstado = Data::buscarKey('idcompraestado');
-                            $rta = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
-                            if( $rta ){
-                                $respuesta = true;
-                                //envio de mail
-                                Mail::enviarMail($mail, $contenido);
-                            } else {
-                                $respuesta = false;
-                            }
-                        } else {
-                            $respuesta = false;
-                            $mensaje = 'Ha ocurrido un error.';
-                        }
-                    }else{
-                        //cambio de estado solamente 5
-                        if($idCompraEstadoTipoPorParametro == 3){
-                            //$idcompraestado = $this->getIdcompraestado();
-                            $objCompra = $objCompraEstado->getObjCompra(); 
+                if ($objCompraEstado->getCefechafin() == 'NULL' || $objCompraEstado->getCefechafin() == NULL) {
+                    $objCompraEstadoTipoActual = $objCompraEstado->getObjCompraestadotipo();
+                    $idCompraEstadoTipoActual = $objCompraEstadoTipoActual->getIdcompraestadotipo();
+                    if ($idCompraEstadoTipoActual != $idCompraEstadoTipoPorParametro) {
+                        if ($idCompraEstadoTipoPorParametro == '2' || $idCompraEstadoTipoPorParametro == 2) {
+                            $objCompra = $objCompraEstado->getObjCompra();
                             $idCompra = $objCompra->getIdcompra();
                             $objUsuario = $objCompra->getObjUsuario();
                             $mail = $objUsuario->getUsmail();
-                            $idcompraestadotipo = 3;
-                            $rsss = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
-                            //envio de mail
-                            Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
-                            $respuesta = true;
-                        }/*elseif($idCompraEstadoTipoPorParametro == 4){
+                            $objCompraItemCon = new CompraitemController();
+                            $arrBusIdCompra['idcompra'] = $idCompra;
+                            $listaCarrito = $objCompraItemCon->listarTodo($arrBusIdCompra);
+                            $banderaSePuedeDescontar = false;
+                            foreach ($listaCarrito as $key => $value) {
+                                $cicantidad = $value->getCicantidad();
+                                $objProducto = $value->getObjproducto();
+                                $stock = $objProducto->getProCantStock();
+                                if ($cicantidad > $stock) {
+                                    $banderaSePuedeDescontar = true;
+                                }
+                            }
+                            if (!$banderaSePuedeDescontar) {
+                                // A descontar stock
+                                foreach ($listaCarrito as $key => $value) {
+                                    $cicantidad = $value->getCicantidad();
+                                    $objProducto = $value->getObjProducto();
+                                    $stock = $objProducto->getProCantStock();
+                                    $nuevoStock = $stock - $cicantidad;
+                                    $rta = $objProducto->setProCantStock($nuevoStock);
+                                    $rta = $objProducto->modificar(); // no lo modifica - sql error
+                                }
+                                $idcompraestadotipo = 2;
+                                $rta = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
+                                if ($rta) {
+                                    $respuesta = true;
+                                    Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Aceptada".');
+                                } else {
+                                    $respuesta = false;
+                                }
+                            } else {
+                                $respuesta = false;
+                                $mensaje = 'Un producto supera el stock';
+                            }
+                        } elseif ($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4 || $idCompraEstadoTipoPorParametro == '1' || $idCompraEstadoTipoPorParametro == 1) {
+                            // Cancelada, devuelve stock.
+                            $objCompra = $objCompraEstado->getObjCompra();
+                            $idCompra = $objCompra->getIdcompra();
+                            $objUsuario = $objCompra->getObjUsuario();
+                            $mail = $objUsuario->getUsmail();
+                            $objCompraItemCon = new CompraitemController();
+                            $arrBusIdCompra['idcompra'] = $idCompra;
+                            $listaCarrito = $objCompraItemCon->listarTodo($arrBusIdCompra);
+                            $banderaSePuedeSumar = false;
+                            foreach ($listaCarrito as $key => $value) {
+                                $cicantidad = $value->getCicantidad();
+                                $objProducto = $value->getObjproducto();
+                                $stock = $objProducto->getProCantStock();
+                                if ($cicantidad < $stock) {
+                                    $banderaSePuedeSumar = true;
+                                }
+                            }
+                            if ($banderaSePuedeSumar) {
+                                // A sumar stock
+                                foreach ($listaCarrito as $key => $value) {
+                                    $cicantidad = $value->getCicantidad();
+
+                                    $objProducto = $value->getObjProducto();
+                                    $stock = $objProducto->getProCantStock();
+
+                                    /* if( $stock >= $cicantidad ){
+                                    $nuevoStock = $stock;
+                                 } else { */
+                                    $nuevoStock = $stock + $cicantidad;
+                                    //}
+                                    $objProducto->setProCantStock($nuevoStock);
+                                    $rta = $objProducto->modificar(); // no lo modifica - sql error
+                                }
+                                // Cambiar estado tupla y generar una nueva de compraestado; 5
+                                if ($idCompraEstadoTipoPorParametro == '4' || $idCompraEstadoTipoPorParametro == 4) {
+                                    $idcompraestadotipo = 4;
+                                    $contenido = 'Su compra ha pasado al estado de "Cancelada".';
+                                } else {
+                                    $idcompraestadotipo = 1;
+                                    $contenido = 'Su compra ha pasado al estado de "Iniciada",';
+                                }
+                                //$idCompraEstado = $objCompraEstadoCon->buscarKey( 'idcompraestado' );
+                                $idCompraEstado = Data::buscarKey('idcompraestado');
+                                $rta = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
+                                if ($rta) {
+                                    $respuesta = true;
+                                    //envio de mail
+                                    Mail::enviarMail($mail, $contenido);
+                                } else {
+                                    $respuesta = false;
+                                }
+                            } else {
+                                $respuesta = false;
+                                $mensaje = 'Ha ocurrido un error.';
+                            }
+                        } else {
+                            //cambio de estado solamente 5
+                            if ($idCompraEstadoTipoPorParametro == 3) {
+                                //$idcompraestado = $this->getIdcompraestado();
+                                $objCompra = $objCompraEstado->getObjCompra();
+                                $idCompra = $objCompra->getIdcompra();
+                                $objUsuario = $objCompra->getObjUsuario();
+                                $mail = $objUsuario->getUsmail();
+                                $idcompraestadotipo = 3;
+                                $rsss = $this->modificarEstado($idCompraEstado, $idcompraestadotipo);
+                                //envio de mail
+                                Mail::enviarMail($mail, 'Su compra ha pasado al estado de "Enviada".');
+                                $respuesta = true;
+                            }/*elseif($idCompraEstadoTipoPorParametro == 4){
                             $idcompraestado = $objCompraEstado->getIdcompraestado();
                             $idcompraestadotipo = 4;
                             $objCompra = new Compra();
@@ -434,21 +442,29 @@ class CompraestadoController extends MasterController {
                             $rsss = $this->modificarEstado($idCompraestado, $idcompraestadotipo);
                             //envio de mail
                         }*/
+                        }
+                    }else{
+                        $respuesta = false;
+                        $mensaje = 'La compra ya posee ese estado';
                     }
-                }else{
-                    $respuesta = false;
-                    $mensaje = 'Esa compra ya se encuentra en ese estado';
+                    
+                } else {
+                        $respuesta = false;
+                        $mensaje = 'Solo se puede actualizar seleccionando una compra sin fecha fin';
                 }
-        }else{
+            } else {
+                $respuesta = false;
+                $mensaje = 'No se encontro el obj compra estado';
+            }
+        } else {
             $respuesta = false;
             $mensaje = 'No se encontro el obj compra estado';
         }
-        $retorno[0] = $respuesta;
-        if(isset($mensaje)){
-            $retorno[1] = $mensaje;
-        }
-        return $retorno;
-    }    
-}
-
+            $retorno[0] = $respuesta;
+            if (isset($mensaje)) {
+                $retorno[1] = $mensaje;
+            }
+            return $retorno;
+    }
+    
 }
