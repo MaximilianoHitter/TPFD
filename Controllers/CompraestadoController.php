@@ -293,10 +293,12 @@ class CompraestadoController extends MasterController {
             $objCompraestadotipo = new Compraestadotipo();
             $arrB['idcompraestadotipo'] = $idcompraestadotipo;
             $objCompraestadotipo->buscar($arrB);
-            $objCompraEstado->setObjCompraestadotipo($objCompraestadotipo);
+            //$objCompraEstado->setObjCompraestadotipo($objCompraestadotipo);
             $bandera = $objCompraEstado->modificar();
             if($bandera['respuesta']){
                 $respuesta = true;
+                $objCompraEstado->setObjCompraestadotipo($objCompraestadotipo);
+                $objCompraEstado->insertar();
             }else{
                 $respuesta = false;
             }
