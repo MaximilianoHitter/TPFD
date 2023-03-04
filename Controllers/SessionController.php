@@ -136,7 +136,16 @@ class SessionController extends MasterController {
     public function obtenerMenues(){
         $objMenuCon = new MenuController();
         $menus = $objMenuCon->obtenerMenuesPorRol($this->getRolPrimoId());
-        return $menus;    
+        $menusDeSalida = [];
+        foreach ($menus as $key => $value) {
+            if(!is_array($value)){
+                $rta = $objMenuCon->revisarMenuesHabilitados($menus[$key]);
+                if($rta){
+                    $menusDeSalida[] = $menus[$key];
+                }
+            }
+        }
+        return $menusDeSalida;    
     }
 
     public function obtenerTodosMenues(){

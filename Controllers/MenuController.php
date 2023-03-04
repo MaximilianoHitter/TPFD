@@ -320,4 +320,15 @@ class MenuController extends MasterController
         }
         return $retorno;
     }
+
+    public function revisarMenuesHabilitados($menu){
+        $menuAComprobar = $menu;
+        $respuesta = true;
+        $objMenu = new Menu();
+        $objMenu->buscar(array('menombre'=>$menu));
+        if($objMenu->getMedeshabilitado() != NULL ){
+            $respuesta = false;
+        }
+        return $respuesta;
+    }
 }
