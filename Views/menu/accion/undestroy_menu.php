@@ -5,7 +5,7 @@ $objMenuCon = new MenuController();
 $data = Data::buscarKey('idmenu');
 $respuesta = false;
 if($data != null){
-   $rta = $objMenuCon->Noeliminar($idmenu);
+   $rta = $objMenuCon->Noeliminar($data);
    //var_dump($rta);
    //die()
    if(!$rta){

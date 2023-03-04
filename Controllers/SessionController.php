@@ -9,7 +9,7 @@ class SessionController extends MasterController {
     }
 
     public function getUsnombre() {
-        if(array_key_exists('usnombre', $_SESSION)){
+        if(array_key_exists('usnombre', $_SESSION) && $_SESSION['usnombre'] != '' && $_SESSION['usnombre'] != NULL ){
             $usnombre = $_SESSION['usnombre'];
         }else{
             $usnombre = false;

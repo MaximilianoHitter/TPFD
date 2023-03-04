@@ -14,7 +14,7 @@
         $bandera = false;
     }
     if($bandera){
-        //header($PRINCIPAL."?error=permiso");
+        header($PRINCIPAL);
     }
     
 ?>
