@@ -25,27 +25,14 @@ try {
 //var_dump($rol);
 
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en"> -->
 
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
-    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
-    <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>Prueba isiUI</title>
-</head> -->
+
 
 <div class="container-fluid p-5 my-1 d-flex justify-content-center usuario">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-12">
 
-            <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:1200px;height:700px" url="accion/listar_usuario.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+            <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:1200px; height:700px" url="accion/listar_usuario.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
                 <thead>
                     <tr>
                         <th field="idusuario" width="50">Id</th>
@@ -69,35 +56,30 @@ try {
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyUsuario()\">Deshabilitar Usuario</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"undestroyUsuario()\">Habilitar Usuario</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"newRolEs()\">Ver Roles</a>";
-            }
-        ?>
-        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsuario()">Nuevo Usuario</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUsuario()">Editar Usuario</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuario()">Deshabilitar Usuario</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="undestroyUsuario()">Habilitar Usuario</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a> -->
-    </div>
-    <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-        <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
-            <h3>Usuario Información</h3>
-            <!-- <div style="margin-bottom:10px;">
-        <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
-    </div> -->
-            <div style="margin-bottom:10px;">
-                <input name="usnombre" id="usnombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
+                }
+                ?>
             </div>
-            <div style="margin-bottom:10px;">
-                <input name="uspass" id="uspass" class="easyui-textbox" required="true" label="Password" style="width:100%;">
+    
+            <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+                <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
+                    <h3>Usuario Información</h3>
+            
+                    <div style="margin-bottom:10px;">
+                        <input name="usnombre" id="usnombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <input name="uspass" id="uspass" class="easyui-textbox" required="true" label="Password" style="width:100%;">
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
+                    </div>
+            
+                </form>
+                <div id="dlg-buttons">
+                    <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarUsuario()" style="width:90px">Aceptar</a>
+                    <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+                </div>
             </div>
-            <div style="margin-bottom:10px;">
-                <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
-            </div>
-
-
-        </form>
-        <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarUsuario()" style="width:90px">Aceptar</a>
-            <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
     </div>
 </div>
@@ -320,7 +302,7 @@ try {
 
 <style type="text/css">
     .usuario {
-        background-color: #006d31;
+        background-color: #666666;
         color: white;
     }
 </style>

@@ -1,24 +1,11 @@
 <footer class="footer">
     <div class="box-container">
-        <div class="box">
-            <h3>Nuestras sucursales</h3>
+        <div class="shares">
             <a href="#"><i class="fas fa-map-marker-alt"></i>La FAI</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i>La casa del Masi</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i>La casa del Jero</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i>La casa de Mar</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i>La casa del Gonza</a>
-        </div>
-        <div class="box">
-            <h3>Quick links</h3>
-            <a href="#"><i class="fas fa-arrow-right"></i>Home</a>
-            <a href="#"><i class="fas fa-arrow-right"></i>Ingresos</a>
-            <a href="#"><i class="fas fa-arrow-right"></i>Reviews</a>
-            <a href="#"><i class="fas fa-arrow-right"></i>Contacto</a>
-        </div>
-        <div class="box">
-            <h3>Extra links</h3>
-            <a href="#"><i class="fas fa-arrow-right"></i>Información de la cuenta</a>
-            <a href="#"><i class="fas fa-arrow-right"></i>Productos comprados</a>
         </div>
     </div>
     <div class="share">

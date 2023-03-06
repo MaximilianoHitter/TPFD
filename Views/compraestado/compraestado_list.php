@@ -193,7 +193,7 @@ try {
 
 <style type="text/css">
     .compraestado {
-        background-color: #006d31;
+        background-color: #666666;
         color: white;
     }
 </style>

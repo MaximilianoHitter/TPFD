@@ -160,7 +160,7 @@ $lista = $objCompraItem->listarTodo( $arrayBusqueda ); */
 
 <style type="text/css">
     .compraitem {
-        background-color: #006d31;
+        background-color: #666666;
         color: white;
     }
 </style>

@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');*/
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Sacramento&display=swap');
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -12,10 +13,12 @@
     transition: width none;
 }
 
+
 /* Variables pa los colorcitos */
+
 :root {
-    --green: #27ae60;
-    --dark-color: #219150;
+    --green: #273bae;
+    --dark-color: #215b91;
     --black: #444;
     --light-color: #666;
     --border: .1rem solid rgba(0, 0, 0, .1);
@@ -44,6 +47,7 @@ html::-webkit-scrollbar-thumb {
 
 section {
     padding: 5rem 9%;
+    background-color: #666666;
 }
 
 li {
@@ -71,7 +75,7 @@ li {
 }
 
 .header-1 {
-    background: #fff;
+    background: #706666;
     padding: 1.5rem 9%;
     display: flex;
     align-items: center;
@@ -125,14 +129,16 @@ li {
     color: var(--green);
 }
 
-.header .icons div, .icons a {
+.header .icons div,
+.icons a {
     font-size: 2.5rem;
     margin-left: 1.5rem;
     color: var(--black);
     cursor: pointer;
 }
 
-.header .icons div:hover, .icons a:hover {
+.header .icons div:hover,
+.icons a:hover {
     color: var(--green);
 }
 
@@ -325,7 +331,7 @@ li {
 .icons-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap:1.5rem;
+    gap: 1.5rem;
 }
 
 .icons-container .icons {
@@ -503,20 +509,20 @@ li {
 
 .footer .box-container .box h3 {
     font-size: 2.2rem;
-    color: var(--black);
+    color: white;
     padding: 1rem 0;
 }
 
 .footer .box-container .box a {
     display: block;
     font-size: 1.4rem;
-    color: var(--light-color);
+    color: white;
     padding: 1rem 0;
     text-decoration: none;
 }
 
 .footer .box-container .box a i {
-    color: var(--green);
+    color: white;
     padding-right: .5rem;
 }
 
@@ -525,6 +531,11 @@ li {
 }
 
 .footer .share {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.footer .shares {
     padding: 1rem 0;
     text-align: center;
 }
@@ -541,6 +552,19 @@ li {
     border-radius: 50%;
 }
 
+.footer .shares a {
+    text-decoration: none;
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    color: #fff;
+    margin: 0 .3rem;
+}
+
+.footer .shares a:hover {
+    background: red;
+}
 
 .footer .share a:hover {
     background: var(--black);
@@ -553,12 +577,12 @@ li {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
     font-size: 2rem;
-    color: var(--light-color);
+    color: red;
     text-align: center;
 }
 
 .registracion {
-    color: green;
+    color: rgb(0, 87, 128);
     font-size: 18px;
     text-align: center;
     padding: 50px;
@@ -566,13 +590,13 @@ li {
 }
 
 .box1 {
-    border-color: green;
+    border-color: rgb(0, 51, 128);
     border-style: solid;
     border-width: 3px;
 }
 
 .yo {
-    border-color: #219150;
+    border-color: #666666;
     border-style: solid;
     border-width: 3px;
     width: 500px;
@@ -581,14 +605,18 @@ li {
 }
 
 body {
-    background-color: #219150;
-}
-footer {
-    background-color: white;
+    background-color: #666666;
 }
 
+footer {
+    background-color: rgb(80, 92, 116);
+    color: white;
+}
+
+
 /* Media queries */
-@media( max-width:991px ){
+
+@media( max-width:991px) {
     html {
         font-size: 55%;
     }
@@ -600,7 +628,7 @@ footer {
     }
 }
 
-@media( max-width:768px ){
+@media( max-width:768px) {
     html {
         scroll-padding-top: 0;
     }
@@ -645,7 +673,9 @@ footer {
     }
 }
 
+
 /* Login styles */
+
 .container {
     height: 100;
 }
@@ -655,7 +685,7 @@ footer {
     justify-content: center;
 }
 
-@media( max-width:450px ){
+@media( max-width:450px) {
     html {
         font-size: 50%;
     }

@@ -39,7 +39,7 @@ if( $objSession->getUsnombre() != null ){
 <?php /*  var_dump($objSession->getIdusuario()); */ ?>
 <div class="container-fluid p-5 my-1 d-flex justify-content-center producto">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-12">
 
             <table id="dg" title="Productos" class="easyui-datagrid" style="width:1200px;height:700px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
                 <thead>
@@ -99,20 +99,7 @@ if( $objSession->getUsnombre() != null ){
                     <div style="margin-bottom:10px;">
                         <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;">
                     </div>
-                   <!--  <div style="margin-bottom:10px;">
-                        <input class="easyui-filebox" class="foto" name="foto" id="foto" style="width:100%" data-options="
-                            prompt:'Selecciona un archivo',
-                            onChange: function(value){
-                                var f = $(this).next().find('input[type=file]')[0];
-                                if (f.files && f.files[0]){
-                                    var reader = new FileReader();
-                                    reader.onload = function(e){
-                                        $('#foto').attr('src', e.target.result);
-                                    }
-                                    reader.readAsDataURL(f.files[0]);
-                                }
-                            }">
-                    </div> -->
+                   
                 </form>
 
                 <div id="dlg-buttons">
@@ -278,7 +265,7 @@ if( $objSession->getUsnombre() != null ){
 
 <style type="text/css">
     .producto {
-        background-color: #006d31;
+        background-color: #666666;
         color: white;
     }
 </style>
