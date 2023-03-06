@@ -50,7 +50,7 @@ if( $objSession->getUsnombre() != null ){
                         <th field="procantstock">Stock</th>
                         <th field="autor" >Autor</th>
                         <th field="precio">Precio</th>
-                        <th field="isbn">ISBN</th>
+                        <th field="isbn">Año</th>
                         <th field="categoria" >Categoría</th>
                         <th field="prdeshabilitado" >Deshabilitado</th>
                     </tr>
@@ -94,12 +94,12 @@ if( $objSession->getUsnombre() != null ){
                         <input name="precio" id="precio" class="easyui-textbox" required="true" label="Precio" style="width:100%;">
                     </div>
                     <div style="margin-bottom:10px;">
-                        <input name="isbn" id="isbn" class="easyui-textbox" required="true" label="ISBN" style="width:100%;">
+                        <input name="isbn" id="isbn" class="easyui-textbox" required="true" label="Año" style="width:100%;">
                     </div>
                     <div style="margin-bottom:10px;">
                         <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;">
                     </div>
-                    <div style="margin-bottom:10px;">
+                   <!--  <div style="margin-bottom:10px;">
                         <input class="easyui-filebox" class="foto" name="foto" id="foto" style="width:100%" data-options="
                             prompt:'Selecciona un archivo',
                             onChange: function(value){
@@ -112,7 +112,7 @@ if( $objSession->getUsnombre() != null ){
                                     reader.readAsDataURL(f.files[0]);
                                 }
                             }">
-                    </div>
+                    </div> -->
                 </form>
 
                 <div id="dlg-buttons">
@@ -145,7 +145,7 @@ if( $objSession->getUsnombre() != null ){
             <input name="precio" id="precio" class="easyui-textbox" required="true" label="Precio" style="width:100%;" readonly>
         </div>
         <div style="margin-bottom:10px;">
-            <input name="isbn" id="isbn" class="easyui-textbox" required="true" label="ISBN" style="width:100%;" readonly>
+            <input name="isbn" id="isbn" class="easyui-textbox" required="true" label="Año" style="width:100%;" readonly>
         </div>
         <div style="margin-bottom:10px;">
             <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;" readonly>
