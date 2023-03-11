@@ -45,7 +45,7 @@ if($objSession->tienePermiso()){
         <!-- Bootstrap -->
         <link rel="stylesheet" href="../../Public/bootstrap-5.2.2-dist/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
+        <link rel="stylesheet" href="../../Vendor/themes/black/easyui.css">
         <link rel="stylesheet" href="../../Vendor/themes/icon.css">
         <link rel="stylesheet" href="../../Vendor/themes/color.css">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
